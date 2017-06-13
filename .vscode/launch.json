@@ -10,7 +10,8 @@
 			"env": {},
 			"args": ["-host", "ft2.cesga.es",
                      "-ssh-user", "otarijci",
-                     "-ssh-password", "300tt.yo"]
+                     "-ssh-password", "300tt.yo",
+                     "-time-zone", "+02:00"]
         }
     ]
 }

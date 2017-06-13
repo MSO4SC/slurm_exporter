@@ -30,69 +30,111 @@ import (
 )
 
 const (
-	BOOTFAIL    = iota
-	CANCELLED   = iota
-	COMPLETED   = iota
-	CONFIGURING = iota
-	COMPLETING  = iota
-	FAILED      = iota
-	NODEFAIL    = iota
-	PENDING     = iota
-	PREEMPTED   = iota
-	REVOKED     = iota
-	RUNNING     = iota
-	SPECIALEXIT = iota
-	STOPPED     = iota
-	SUSPENDED   = iota
-	TIMEOUT     = iota
+	qJOBID      = iota
+	qNAME       = iota
+	qUSERNAME   = iota
+	qPARTITION  = iota
+	qNUMCPUS    = iota
+	qSUBMITTIME = iota
+	qSTARTTIME  = iota
+	qSTATE      = iota
+	qFIELDS     = iota
+)
+
+const (
+	slurmLayout   = time.RFC3339
+	queueCommand  = "squeue -h -O \"jobid,name,username,partition,numcpus,submittime,starttime,state\""
+	nullStartTime = "N/A"
+)
+
+// TODO(emepetres): can be optimised doing at the same time Trim+alloc
+func squeueLineParser(line string) ([]string, error) {
+	// check if line is long enough
+	if len(line) < 20*(qFIELDS-1)+1 {
+		return nil, errors.New("Slurm line not long enough: \"" + line + "\"")
+	}
+
+	// separate fields by 20 chars, trimming them
+	result := make([]string, 0, qFIELDS)
+	for i := 0; i < qFIELDS-1; i++ {
+		result = append(result, strings.TrimSpace(line[20*i:20*(i+1)]))
+	}
+	result = append(result, strings.TrimSpace(line[20*(qFIELDS-1):]))
+
+	// add + to the end of the name if it is long enough
+	if len(result[qNAME]) == 20 {
+		result[qNAME] = result[qNAME][:19] + "+"
+	}
+
+	return result, nil
+}
+
+const (
+	sBOOTFAIL    = iota
+	sCANCELLED   = iota
+	sCOMPLETED   = iota
+	sCONFIGURING = iota
+	sCOMPLETING  = iota
+	sFAILED      = iota
+	sNODEFAIL    = iota
+	sPENDING     = iota
+	sPREEMPTED   = iota
+	sREVOKED     = iota
+	sRUNNING     = iota
+	sSPECIALEXIT = iota
+	sSTOPPED     = iota
+	sSUSPENDED   = iota
+	sTIMEOUT     = iota
 )
 
 // StatusDict maps string status with its int values
 var StatusDict = map[string]float64{
-	"BOOT_FAIL":    BOOTFAIL,
-	"CANCELLED":    CANCELLED,
-	"COMPLETED":    COMPLETED,
-	"CONFIGURING":  CONFIGURING,
-	"COMPLETING":   COMPLETING,
-	"FAILED":       FAILED,
-	"NODE_FAIL":    NODEFAIL,
-	"PENDING":      PENDING,
-	"PREEMPTED":    PREEMPTED,
-	"REVOKED":      REVOKED,
-	"RUNNING":      RUNNING,
-	"SPECIAL_EXIT": SPECIALEXIT,
-	"STOPPED":      STOPPED,
-	"SUSPENDED":    SUSPENDED,
-	"TIMEOUT":      TIMEOUT,
+	"BOOT_FAIL":    sBOOTFAIL,
+	"CANCELLED":    sCANCELLED,
+	"COMPLETED":    sCOMPLETED,
+	"CONFIGURING":  sCONFIGURING,
+	"COMPLETING":   sCOMPLETING,
+	"FAILED":       sFAILED,
+	"NODE_FAIL":    sNODEFAIL,
+	"PENDING":      sPENDING,
+	"PREEMPTED":    sPREEMPTED,
+	"REVOKED":      sREVOKED,
+	"RUNNING":      sRUNNING,
+	"SPECIAL_EXIT": sSPECIALEXIT,
+	"STOPPED":      sSTOPPED,
+	"SUSPENDED":    sSUSPENDED,
+	"TIMEOUT":      sTIMEOUT,
 }
 
 // QueueCollector collects metrics from the Slurm queues
 type QueueCollector struct {
-	executionTime *prometheus.Desc
-	status        *prometheus.Desc
-	host          string
-	sshUser       string
-	sshPass       string
+	waitTime *prometheus.Desc
+	status   *prometheus.Desc
+	host     string
+	sshUser  string
+	sshPass  string
+	timeZone string
 }
 
 // NewQueueCollector creates a new Slurm Queue collector
-func NewQueueCollector(sshHost, sshUser, sshPass string) *QueueCollector {
+func NewQueueCollector(sshHost, sshUser, sshPass, timeZone string) *QueueCollector {
 	return &QueueCollector{
-		executionTime: prometheus.NewDesc(
-			"job_execution_time",
-			"Time that the job is executing",
-			[]string{"jobid", "partition", "nodes"},
+		waitTime: prometheus.NewDesc(
+			"job_wait_time",
+			"Time that the job waited, or is estimated to wait",
+			[]string{"jobid", "name", "username", "partition", "numcpus"},
 			nil,
 		),
 		status: prometheus.NewDesc(
 			"job_status",
 			"Status of the job",
-			[]string{"jobid", "partition", "nodes"},
+			[]string{"jobid", "name", "username", "partition", "numcpus"},
 			nil,
 		),
-		host:    sshHost,
-		sshUser: sshUser,
-		sshPass: sshPass,
+		host:     sshHost,
+		sshUser:  sshUser,
+		sshPass:  sshPass,
+		timeZone: timeZone,
 	}
 }
 
@@ -100,7 +142,7 @@ func NewQueueCollector(sshHost, sshUser, sshPass string) *QueueCollector {
 // through the ch channel.
 // It implements collector interface
 func (qc *QueueCollector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- qc.executionTime
+	ch <- qc.waitTime
 	ch <- qc.status
 }
 
@@ -112,7 +154,7 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 	var stdout, stderr bytes.Buffer
 	var collected uint
 	err := qc.executeSSHCommand(
-		"squeue -h -o \"%.10A %.12P %.12T %.10M %.6D\"",
+		queueCommand,
 		&stdout,
 		&stderr)
 
@@ -124,35 +166,51 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 	// wait for stdout to fill (it is being filled async by ssh)
 	time.Sleep(100 * time.Millisecond)
 
-	nextLine := nextLineIterator(&stdout)
+	nextLine := nextLineIterator(&stdout, squeueLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
-		if len(fields) >= 5 {
-			ts, tsErr := parseSlurmTime(fields[3])
-			if tsErr == nil {
-				ch <- prometheus.MustNewConstMetric(
-					qc.executionTime,
-					prometheus.CounterValue,
-					float64(ts),
-					fields[0], fields[1], fields[4],
-				)
-			} else {
-				log.Warn(tsErr.Error())
-			}
+		// check the line is correctly parsed
+		if err != nil {
+			log.Warnf(err.Error())
+			continue
+		}
 
-			status, statusOk := StatusDict[fields[2]]
-			if statusOk {
+		// parse submittime
+		submittime, stErr := time.Parse(slurmLayout, fields[qSUBMITTIME]+qc.timeZone)
+		if stErr != nil {
+			log.Warn(stErr.Error())
+			continue
+		}
+
+		// parse starttime and send wait time
+		if fields[qSTARTTIME] != nullStartTime {
+			starttime, sstErr := time.Parse(slurmLayout, fields[qSTARTTIME]+qc.timeZone)
+			if sstErr == nil {
+				waitTimestamp := starttime.Unix() - submittime.Unix()
 				ch <- prometheus.MustNewConstMetric(
-					qc.status,
-					prometheus.CounterValue,
-					status,
-					fields[0], fields[1], fields[4],
+					qc.waitTime,
+					prometheus.GaugeValue,
+					float64(waitTimestamp),
+					fields[qJOBID], fields[qNAME], fields[qUSERNAME],
+					fields[qPARTITION], fields[qNUMCPUS],
 				)
 			} else {
-				log.Warnf("Couldn't parse job status: %s", fields[2])
+				log.Warn(sstErr.Error())
 			}
+		}
+
+		// parse and send job state
+		status, statusOk := StatusDict[fields[qSTATE]]
+		if statusOk {
+			ch <- prometheus.MustNewConstMetric(
+				qc.status,
+				prometheus.GaugeValue,
+				status,
+				fields[qJOBID], fields[qNAME], fields[qUSERNAME],
+				fields[qPARTITION], fields[qNUMCPUS],
+			)
 			collected++
 		} else {
-			log.Warnf("Not enough fields to parse: %s", strings.Join(fields, ","))
+			log.Warnf("Couldn't parse job status: %s", fields[qSTATE])
 		}
 	}
 	fmt.Printf("...%d jobs collected.\n", collected)
@@ -244,12 +302,19 @@ func parseSlurmTime(field string) (uint64, error) {
 }
 
 // nextLineIterator returns a function that iterates
-// over an io.Reader object returning each line in fields
-// separated by spaces
-func nextLineIterator(buf io.Reader) func() ([]string, error) {
+// over an io.Reader object returning each line  parsed
+// in fields following the parser method passed as argument
+func nextLineIterator(buf io.Reader, parser func(string) ([]string, error)) func() ([]string, error) {
 	var buffer = buf.(*bytes.Buffer)
+	var parse = parser
 	return func() ([]string, error) {
+		// get next line in buffer
 		line, err := buffer.ReadString('\n')
-		return strings.Fields(line), err
+		if err != nil {
+			return nil, err
+		}
+
+		// parse the line and return
+		return parse(line)
 	}
 }
