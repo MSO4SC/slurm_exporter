@@ -29,17 +29,6 @@ import (
 	"github.com/prometheus/common/log"
 )
 
-// var x = regexp.MustCompile("^([0-9]+)-([0-9]?[0-9]):([0-9][0-9]):([0-9][0-9])$")
-
-// var TimeLayouts = []string{
-// 	"1-15:04:05",
-// 	"4-15:04",
-// 	"4-15",
-// 	"15:04:05",
-// 	"04:05",
-// 	"04",
-// }
-
 const (
 	BOOTFAIL    = iota
 	CANCELLED   = iota
@@ -81,10 +70,13 @@ var StatusDict = map[string]float64{
 type QueueCollector struct {
 	executionTime *prometheus.Desc
 	status        *prometheus.Desc
+	host          string
+	sshUser       string
+	sshPass       string
 }
 
 // NewQueueCollector creates a new Slurm Queue collector
-func NewQueueCollector() *QueueCollector {
+func NewQueueCollector(sshHost, sshUser, sshPass string) *QueueCollector {
 	return &QueueCollector{
 		executionTime: prometheus.NewDesc(
 			"job_execution_time",
@@ -98,6 +90,9 @@ func NewQueueCollector() *QueueCollector {
 			[]string{"jobid", "partition", "nodes"},
 			nil,
 		),
+		host:    sshHost,
+		sshUser: sshUser,
+		sshPass: sshPass,
 	}
 }
 
@@ -116,8 +111,8 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 	fmt.Println("Collecting metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
-	err := executeSSHCommand(
-		"squeue -h -o \"%.10A %.9P %.12T %.10M %.6D\"",
+	err := qc.executeSSHCommand(
+		"squeue -h -o \"%.10A %.12P %.12T %.10M %.6D\"",
 		&stdout,
 		&stderr)
 
@@ -141,7 +136,7 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 					fields[0], fields[1], fields[4],
 				)
 			} else {
-				log.Warnf("Couldn't parse job execution time (%s): %s", strings.Join(fields, ","), tsErr.Error())
+				log.Warn(tsErr.Error())
 			}
 
 			status, statusOk := StatusDict[fields[2]]
@@ -163,11 +158,11 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 	fmt.Printf("...%d jobs collected.\n", collected)
 }
 
-func executeSSHCommand(cmd string, stdout, stderr io.Writer) error {
+func (qc *QueueCollector) executeSSHCommand(cmd string, stdout, stderr io.Writer) error {
 	sshClient := ssh.NewSSHClientByPassword(
-		"otarijci",
-		"300tt.yo",
-		"ft2.cesga.es",
+		qc.sshUser,
+		qc.sshPass,
+		qc.host,
 		22,
 	)
 

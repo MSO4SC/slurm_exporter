@@ -30,16 +30,44 @@ var (
 		":8080",
 		"The address to listen on for HTTP requests.",
 	)
+	host = flag.String(
+		"host",
+		"localhost",
+		"Slurm host slurm domain name or IP.",
+	)
+	sshUser = flag.String(
+		"ssh-user",
+		"",
+		"SSH user for remote slurm connection (no localhost).",
+	)
+	sshPass = flag.String(
+		"ssh-password",
+		"",
+		"SSH password for remote slurm connection (no localhost).",
+	)
 )
 
 func init() {
-	// Register the summary and the histogram with Prometheus's default registry.
-	prometheus.MustRegister(NewQueueCollector())
+	flag.Parse()
+
+	// Flags check
+	if *host == "localhost" {
+		log.Fatal("Localhost slurm connection not implemented yet.")
+	} else {
+		if *sshUser == "" {
+			flag.Usage()
+			log.Fatal("An user must be provided to connect to Slurm remotely.")
+		}
+		if *sshPass == "" {
+			flag.Usage()
+			log.Warn("A password should be provided to connect to Slurm remotely.")
+		}
+	}
+
+	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass))
 }
 
 func main() {
-	flag.Parse()
-
 	// Expose the registered metrics via HTTP.
 	log.Infof("Starting Server: %s", *addr)
 	http.Handle("/metrics", promhttp.Handler())
