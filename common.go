@@ -158,7 +158,7 @@ func parseSlurmTime(field string) (uint64, error) {
 // nextLineIterator returns a function that iterates
 // over an io.Reader object returning each line  parsed
 // in fields following the parser method passed as argument
-func nextLineIterator(buf io.Reader, parser func(string) ([]string, error)) func() ([]string, error) {
+func nextLineIterator(buf io.Reader, parser func(string) []string) func() ([]string, error) {
 	var buffer = buf.(*bytes.Buffer)
 	var parse = parser
 	return func() ([]string, error) {
@@ -169,6 +169,10 @@ func nextLineIterator(buf io.Reader, parser func(string) ([]string, error)) func
 		}
 
 		// parse the line and return
-		return parse(line)
+		parsed := parse(line)
+		if parsed == nil {
+			return nil, errors.New("not able to parse line")
+		}
+		return parsed, nil
 	}
 }

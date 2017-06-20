@@ -70,6 +70,7 @@ func init() {
 	}
 
 	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *timeZone))
+	prometheus.MustRegister(NewInfoCollector(*host, *sshUser, *sshPass, *timeZone))
 }
 
 func main() {

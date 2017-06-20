@@ -17,7 +17,6 @@ package main
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -45,10 +44,11 @@ const (
 )
 
 // TODO(emepetres): can be optimised doing at the same time Trim+alloc
-func squeueLineParser(line string) ([]string, error) {
+func squeueLineParser(line string) []string {
 	// check if line is long enough
 	if len(line) < 20*(qFIELDS-1)+1 {
-		return nil, errors.New("Slurm line not long enough: \"" + line + "\"")
+		log.Warnf("Slurm line not long enough: \"" + line + "\"")
+		return nil
 	}
 
 	// separate fields by 20 chars, trimming them
@@ -63,7 +63,7 @@ func squeueLineParser(line string) ([]string, error) {
 		result[qNAME] = result[qNAME][:19] + "+"
 	}
 
-	return result, nil
+	return result
 }
 
 // QueueCollector collects metrics from the Slurm queues
@@ -109,7 +109,7 @@ func (qc *QueueCollector) Describe(ch chan<- *prometheus.Desc) {
 // passes them to the ch channel.
 // It implements collector interface
 func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
-	fmt.Println("Collecting metrics...")
+	fmt.Println("Collecting Queue metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
 	err := qc.slurmCommon.executeSSHCommand(
