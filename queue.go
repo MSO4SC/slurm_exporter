@@ -71,10 +71,11 @@ type QueueCollector struct {
 	waitTime    *prometheus.Desc
 	status      *prometheus.Desc
 	slurmCommon SlurmCollector
+	trackedJobs *TrackedJobs
 }
 
 // NewQueueCollector creates a new Slurm Queue collector
-func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector {
+func NewQueueCollector(host, sshUser, sshPass, timeZone string, trackedJobs *TrackedJobs) *QueueCollector {
 	return &QueueCollector{
 		waitTime: prometheus.NewDesc(
 			"job_wait_time",
@@ -94,6 +95,7 @@ func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector 
 			sshPass:  sshPass,
 			timeZone: timeZone,
 		},
+		trackedJobs: trackedJobs,
 	}
 }
 
@@ -125,6 +127,11 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 	// wait for stdout to fill (it is being filled async by ssh)
 	time.Sleep(100 * time.Millisecond)
 
+	//Lock the tracked jobs while we are working
+	qc.trackedJobs.mux.Lock()
+	defer qc.trackedJobs.mux.Unlock()
+	qc.trackedJobs.startTracking()
+
 	nextLine := nextLineIterator(&stdout, squeueLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
 		// check the line is correctly parsed
@@ -152,6 +159,9 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 			)
 			collected++
 
+			// track the job
+			qc.trackedJobs.track(fields[qJOBID])
+
 			// parse starttime and send wait time
 			if fields[qSTARTTIME] != nullStartTime {
 				starttime, sstErr := time.Parse(slurmLayout, fields[qSTARTTIME]+qc.slurmCommon.timeZone)
@@ -173,4 +183,7 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}
 	fmt.Printf("...%d jobs collected.\n", collected)
+
+	// finish job tracking
+	qc.trackedJobs.finishTracking()
 }

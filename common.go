@@ -18,9 +18,11 @@ package main
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/mso4sc/slurm_exporter/ssh"
 )
@@ -62,7 +64,36 @@ var StatusDict = map[string]float64{
 	"TIMEOUT":      sTIMEOUT,
 }
 
-// QueueCollector collects metrics from the Slurm queues
+// TrackedJobs represents the jobs currently being monitored
+type TrackedJobs struct {
+	queued    map[string]bool
+	newQueued map[string]bool
+	finished  map[string]bool
+	mux       sync.Mutex
+}
+
+func (tj *TrackedJobs) startTracking() {
+	tj.newQueued = make(map[string]bool)
+}
+
+func (tj *TrackedJobs) track(id string) {
+	tj.newQueued[id] = true
+	if _, ok := tj.queued[id]; ok {
+		delete(tj.queued, id)
+	}
+}
+
+func (tj *TrackedJobs) finishTracking() {
+	// merge what it left from queued on finished
+	for k := range tj.queued {
+		tj.finished[k] = true
+	}
+	tj.queued = tj.newQueued
+	tj.newQueued = nil // free ram
+	fmt.Println("Finished Jobs: " + strconv.Itoa(len(tj.finished)))
+}
+
+// SlurmCollector collects metrics from the Slurm queues
 type SlurmCollector struct {
 	host     string
 	sshUser  string

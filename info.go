@@ -44,7 +44,7 @@ type InfoCollector struct {
 	slurmCommon    SlurmCollector
 }
 
-// NewQueueCollector creates a new Slurm Queue collector
+// NewInfoCollector creates a new Slurm Info collector
 func NewInfoCollector(host, sshUser, sshPass, timeZone string) *InfoCollector {
 	return &InfoCollector{
 		partitionNodes: prometheus.NewDesc(
