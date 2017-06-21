@@ -17,7 +17,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -73,7 +72,7 @@ func (ic *InfoCollector) Describe(ch chan<- *prometheus.Desc) {
 // passes them to the ch channel.
 // It implements collector interface
 func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
-	fmt.Println("Collecting Info metrics...")
+	log.Debugln("Collecting Info metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
 	err := ic.slurmCommon.executeSSHCommand(
@@ -82,7 +81,7 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 		&stderr)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Warnln(err.Error())
 		return
 	}
 
@@ -111,5 +110,5 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 			log.Warnf(nodesOk.Error())
 		}
 	}
-	fmt.Printf("...%d partition nodes info collected.\n", collected)
+	log.Infof("%d partition nodes info collected", collected)
 }

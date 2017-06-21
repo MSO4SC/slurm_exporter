@@ -38,9 +38,20 @@ const (
 )
 
 const (
+	aJOBID     = iota
+	aNAME      = iota
+	aUSERNAME  = iota
+	aPARTITION = iota
+	aNUMCPUS   = iota
+	aSTATE     = iota
+	aFIELDS    = iota
+)
+
+const (
 	slurmLayout   = time.RFC3339
 	queueCommand  = "squeue -h -O \"jobid,name,username,partition,numcpus,submittime,starttime,state\""
 	nullStartTime = "N/A"
+	acctCommand   = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,NCPUS,State%%20\" -j \"%s\""
 )
 
 // TODO(emepetres): can be optimised doing at the same time Trim+alloc
@@ -111,7 +122,12 @@ func (qc *QueueCollector) Describe(ch chan<- *prometheus.Desc) {
 // passes them to the ch channel.
 // It implements collector interface
 func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
-	fmt.Println("Collecting Queue metrics...")
+	qc.collectQueue(ch)
+	qc.collectAcct(ch)
+}
+
+func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
+	log.Debugln("Collecting Queue metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
 	err := qc.slurmCommon.executeSSHCommand(
@@ -120,7 +136,7 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 		&stderr)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Errorln(err.Error())
 		return
 	}
 
@@ -136,14 +152,14 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
 		// check the line is correctly parsed
 		if err != nil {
-			log.Warnf(err.Error())
+			log.Warnln(err.Error())
 			continue
 		}
 
 		// parse submittime
 		submittime, stErr := time.Parse(slurmLayout, fields[qSUBMITTIME]+qc.slurmCommon.timeZone)
 		if stErr != nil {
-			log.Warn(stErr.Error())
+			log.Warnln(stErr.Error())
 			continue
 		}
 
@@ -160,7 +176,7 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 			collected++
 
 			// track the job
-			qc.trackedJobs.track(fields[qJOBID])
+			qc.trackedJobs.trackQueue(fields[qJOBID])
 
 			// parse starttime and send wait time
 			if fields[qSTARTTIME] != nullStartTime {
@@ -182,8 +198,67 @@ func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
 			log.Warnf("Couldn't parse job status: %s", fields[qSTATE])
 		}
 	}
-	fmt.Printf("...%d jobs collected.\n", collected)
+	log.Infof("%d jobs collected", collected)
 
 	// finish job tracking
 	qc.trackedJobs.finishTracking()
+}
+
+func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
+	log.Debugln("Collecting Acct metrics...")
+	var stdout, stderr bytes.Buffer
+	var collected uint
+
+	// Lock the tracked jobs while we are working
+	qc.trackedJobs.mux.Lock()
+	defer qc.trackedJobs.mux.Unlock()
+
+	// if we dont't have finished jobs we return
+	if len(qc.trackedJobs.finished) > 0 {
+		jobs := qc.trackedJobs.finishedJobs()
+		currentCommand := fmt.Sprintf(acctCommand, strings.Join(jobs, ","))
+
+		err := qc.slurmCommon.executeSSHCommand(
+			currentCommand,
+			&stdout,
+			&stderr)
+
+		if err != nil {
+			log.Errorln(err.Error())
+			return
+		}
+
+		// wait for stdout to fill (it is being filled async by ssh)
+		time.Sleep(100 * time.Millisecond)
+
+		nextLine := nextLineIterator(&stdout, strings.Fields)
+		for fields, err := nextLine(); err == nil; fields, err = nextLine() {
+			// check the line is correctly parsed
+			if err != nil {
+				log.Warnln(err.Error())
+				continue
+			}
+
+			// parse and send job state
+			status, statusOk := StatusDict[fields[aSTATE]]
+			if statusOk {
+				ch <- prometheus.MustNewConstMetric(
+					qc.status,
+					prometheus.GaugeValue,
+					status,
+					fields[aJOBID], fields[aNAME], fields[aUSERNAME],
+					fields[aPARTITION], fields[aNUMCPUS],
+				)
+				collected++
+
+				// track the job
+				qc.trackedJobs.unTrackFinished(fields[aJOBID])
+				log.Debugf("JOB %s finished", fields[aJOBID])
+
+			} else {
+				log.Warnf("Couldn't parse job status: %s", fields[aSTATE])
+			}
+		}
+	}
+	log.Infof("%d finished jobs collected", collected)
 }

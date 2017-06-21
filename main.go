@@ -57,15 +57,15 @@ func init() {
 
 	// Flags check
 	if *host == "localhost" {
-		log.Fatal("Localhost slurm connection not implemented yet.")
+		log.Fatalln("Localhost slurm connection not implemented yet.")
 	} else {
 		if *sshUser == "" {
 			flag.Usage()
-			log.Fatal("An user must be provided to connect to Slurm remotely.")
+			log.Fatalln("An user must be provided to connect to Slurm remotely.")
 		}
 		if *sshPass == "" {
 			flag.Usage()
-			log.Warn("A password should be provided to connect to Slurm remotely.")
+			log.Warnln("A password should be provided to connect to Slurm remotely.")
 		}
 	}
 

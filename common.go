@@ -18,7 +18,6 @@ package main
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -76,11 +75,15 @@ func (tj *TrackedJobs) startTracking() {
 	tj.newQueued = make(map[string]bool)
 }
 
-func (tj *TrackedJobs) track(id string) {
+func (tj *TrackedJobs) trackQueue(id string) {
 	tj.newQueued[id] = true
 	if _, ok := tj.queued[id]; ok {
 		delete(tj.queued, id)
 	}
+}
+
+func (tj *TrackedJobs) unTrackFinished(id string) {
+	delete(tj.finished, id)
 }
 
 func (tj *TrackedJobs) finishTracking() {
@@ -90,7 +93,18 @@ func (tj *TrackedJobs) finishTracking() {
 	}
 	tj.queued = tj.newQueued
 	tj.newQueued = nil // free ram
-	fmt.Println("Finished Jobs: " + strconv.Itoa(len(tj.finished)))
+}
+
+func (tj *TrackedJobs) finishedJobs() []string {
+	keys := make([]string, len(tj.finished))
+
+	i := 0
+	for k := range tj.finished {
+		keys[i] = k
+		i++
+	}
+
+	return keys
 }
 
 // SlurmCollector collects metrics from the Slurm queues
