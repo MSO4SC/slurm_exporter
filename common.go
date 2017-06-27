@@ -21,7 +21,6 @@ import (
 	"io"
 	"strconv"
 	"strings"
-	"sync"
 
 	"github.com/mso4sc/slurm_exporter/ssh"
 )
@@ -45,7 +44,7 @@ const (
 )
 
 // StatusDict maps string status with its int values
-var StatusDict = map[string]float64{
+var StatusDict = map[string]int{
 	"BOOT_FAIL":    sBOOTFAIL,
 	"CANCELLED":    sCANCELLED,
 	"COMPLETED":    sCOMPLETED,
@@ -61,50 +60,6 @@ var StatusDict = map[string]float64{
 	"STOPPED":      sSTOPPED,
 	"SUSPENDED":    sSUSPENDED,
 	"TIMEOUT":      sTIMEOUT,
-}
-
-// TrackedJobs represents the jobs currently being monitored
-type TrackedJobs struct {
-	queued    map[string]bool
-	newQueued map[string]bool
-	finished  map[string]bool
-	mux       sync.Mutex
-}
-
-func (tj *TrackedJobs) startTracking() {
-	tj.newQueued = make(map[string]bool)
-}
-
-func (tj *TrackedJobs) trackQueue(id string) {
-	tj.newQueued[id] = true
-	if _, ok := tj.queued[id]; ok {
-		delete(tj.queued, id)
-	}
-}
-
-func (tj *TrackedJobs) unTrackFinished(id string) {
-	delete(tj.finished, id)
-}
-
-func (tj *TrackedJobs) finishTracking() {
-	// merge what it left from queued on finished
-	for k := range tj.queued {
-		tj.finished[k] = true
-	}
-	tj.queued = tj.newQueued
-	tj.newQueued = nil // free ram
-}
-
-func (tj *TrackedJobs) finishedJobs() []string {
-	keys := make([]string, len(tj.finished))
-
-	i := 0
-	for k := range tj.finished {
-		keys[i] = k
-		i++
-	}
-
-	return keys
 }
 
 // SlurmCollector collects metrics from the Slurm queues

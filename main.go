@@ -69,11 +69,7 @@ func init() {
 		}
 	}
 
-	var trackedJobs = &TrackedJobs{
-		queued:   make(map[string]bool),
-		finished: make(map[string]bool),
-	}
-	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *timeZone, trackedJobs))
+	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *timeZone))
 	prometheus.MustRegister(NewInfoCollector(*host, *sshUser, *sshPass, *timeZone))
 }
 

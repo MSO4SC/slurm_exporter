@@ -110,5 +110,5 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 			log.Warnf(nodesOk.Error())
 		}
 	}
-	log.Infof("%d partition nodes info collected", collected)
+	log.Infof("%d partition info collected", collected)
 }
