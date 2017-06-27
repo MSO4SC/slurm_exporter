@@ -49,7 +49,7 @@ const (
 
 const (
 	slurmLayout   = time.RFC3339
-	queueCommand  = "squeue -h -O \"jobid,name,username,partition,numcpus,submittime,starttime,state\""
+	queueCommand  = "squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state | grep -v '%s'"
 	nullStartTime = "N/A"
 	acctCommand   = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,ReqCPUS,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO"
 )
@@ -82,7 +82,7 @@ type QueueCollector struct {
 	waitTime          *prometheus.Desc
 	status            *prometheus.Desc
 	slurmCommon       SlurmCollector
-	alreadyRegistered map[string]bool
+	alreadyRegistered []string
 	lasttime          time.Time
 }
 
@@ -107,7 +107,7 @@ func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector 
 			sshPass:  sshPass,
 			timeZone: timeZone,
 		},
-		alreadyRegistered: make(map[string]bool),
+		alreadyRegistered: make([]string, 0),
 		lasttime:          time.Now().Add(-1 * time.Minute),
 	}
 }
@@ -178,7 +178,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 					fields[aJOBID], fields[aNAME], fields[aUSERNAME],
 					fields[aPARTITION], fields[aALLOCCPUS],
 				)
-				qc.alreadyRegistered[fields[aJOBID]] = true
+				qc.alreadyRegistered = append(qc.alreadyRegistered, fields[aJOBID])
 				collected++
 			}
 		} else {
@@ -197,8 +197,12 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 	log.Debugln("Collecting Queue metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
+
+	currentCommand := fmt.Sprintf(queueCommand, strings.Join(qc.alreadyRegistered, "\\|"))
+	qc.alreadyRegistered = make([]string, 0) // free memory
+
 	err := qc.slurmCommon.executeSSHCommand(
-		queueCommand,
+		currentCommand,
 		&stdout,
 		&stderr)
 
@@ -211,7 +215,6 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 	time.Sleep(100 * time.Millisecond)
 
 	// remove already registered map memory from sacct when finished
-	defer func() { qc.alreadyRegistered = make(map[string]bool) }()
 	nextLine := nextLineIterator(&stdout, squeueLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
 		// check the line is correctly parsed
@@ -230,10 +233,6 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 		// parse and send job state
 		status, statusOk := StatusDict[fields[qSTATE]]
 		if statusOk {
-			if _, ar := qc.alreadyRegistered[fields[qJOBID]]; ar {
-				continue
-			}
-
 			ch <- prometheus.MustNewConstMetric(
 				qc.status,
 				prometheus.GaugeValue,
