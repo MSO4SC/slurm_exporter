@@ -45,10 +45,10 @@ var (
 		"",
 		"SSH password for remote slurm connection (no localhost).",
 	)
-	timeZone = flag.String(
-		"time-zone",
-		"Z",
-		"Time zone of the host, in RFC3339 format (e.g. Z for UTC, +02:00 for UTC+2).",
+	countryTZ = flag.String(
+		"countrytz",
+		"Europe/Madrid",
+		"Country Time zone of the host, (e.g. \"Europe/Madrid\").",
 	)
 )
 
@@ -69,8 +69,8 @@ func init() {
 		}
 	}
 
-	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *timeZone))
-	prometheus.MustRegister(NewInfoCollector(*host, *sshUser, *sshPass, *timeZone))
+	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *countryTZ))
+	prometheus.MustRegister(NewInfoCollector(*host, *sshUser, *sshPass, *countryTZ))
 }
 
 func main() {

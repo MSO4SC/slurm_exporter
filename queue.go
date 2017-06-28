@@ -49,9 +49,9 @@ const (
 
 const (
 	slurmLayout   = time.RFC3339
-	queueCommand  = "squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state | grep -v '%s'"
+	queueCommand  = "squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state"
 	nullStartTime = "N/A"
-	acctCommand   = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,ReqCPUS,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO"
+	acctCommand   = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,ReqCPUS,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
 )
 
 // TODO(emepetres): can be optimised doing at the same time Trim+alloc
@@ -81,14 +81,14 @@ func squeueLineParser(line string) []string {
 type QueueCollector struct {
 	waitTime          *prometheus.Desc
 	status            *prometheus.Desc
-	slurmCommon       SlurmCollector
+	slurmCommon       *SlurmCollector
 	alreadyRegistered []string
 	lasttime          time.Time
 }
 
 // NewQueueCollector creates a new Slurm Queue collector
 func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector {
-	return &QueueCollector{
+	newQueueCollector := &QueueCollector{
 		waitTime: prometheus.NewDesc(
 			"job_wait_time",
 			"Time that the job waited, or is estimated to wait",
@@ -101,15 +101,19 @@ func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector 
 			[]string{"jobid", "name", "username", "partition", "numcpus"},
 			nil,
 		),
-		slurmCommon: SlurmCollector{
-			host:     host,
-			sshUser:  sshUser,
-			sshPass:  sshPass,
-			timeZone: timeZone,
-		},
 		alreadyRegistered: make([]string, 0),
-		lasttime:          time.Now().Add(-1 * time.Minute),
 	}
+	newSlurmCommon, err := NewSlurmCollector(host, sshUser, sshPass, timeZone)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+	newQueueCollector.slurmCommon = newSlurmCommon
+	newQueueCollector.setLastTime()
+	return newQueueCollector
+}
+
+func (qc *QueueCollector) setLastTime() {
+	qc.lasttime = time.Now().In(qc.slurmCommon.timeZone).Add(-1 * time.Minute)
 }
 
 // Describe sends metrics descriptions of this collector
@@ -137,13 +141,15 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 	minute := qc.lasttime.Minute()
 	second := qc.lasttime.Second()
 
-	if time.Now().Hour() < hour {
+	now := time.Now().In(qc.slurmCommon.timeZone)
+	if now.Hour() < hour {
 		hour = 0
 		minute = 0
 		second = 0
 	}
 
 	currentCommand := fmt.Sprintf(acctCommand, hour, minute, second)
+	log.Debugln(currentCommand)
 
 	err := qc.slurmCommon.executeSSHCommand(
 		currentCommand,
@@ -157,7 +163,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 
 	// wait for stdout to fill (it is being filled async by ssh)
 	time.Sleep(100 * time.Millisecond)
-	qc.lasttime = time.Now().Add(-1 * time.Minute)
+	qc.setLastTime()
 
 	nextLine := nextLineIterator(&stdout, strings.Fields)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
@@ -179,6 +185,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 					fields[aPARTITION], fields[aALLOCCPUS],
 				)
 				qc.alreadyRegistered = append(qc.alreadyRegistered, fields[aJOBID])
+				//log.Debugln("Job " + fields[aJOBID] + " finished with state " + fields[aSTATE])
 				collected++
 			}
 		} else {
@@ -197,9 +204,15 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 	log.Debugln("Collecting Queue metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
+	var currentCommand string
 
-	currentCommand := fmt.Sprintf(queueCommand, strings.Join(qc.alreadyRegistered, "\\|"))
-	qc.alreadyRegistered = make([]string, 0) // free memory
+	if len(qc.alreadyRegistered) > 0 {
+		currentCommand = fmt.Sprintf(queueCommand+" | grep -v '%s'", strings.Join(qc.alreadyRegistered, "\\|"))
+		qc.alreadyRegistered = make([]string, 0) // free memory
+	} else {
+		currentCommand = queueCommand
+	}
+	log.Debugln(currentCommand)
 
 	err := qc.slurmCommon.executeSSHCommand(
 		currentCommand,
@@ -224,7 +237,7 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 		}
 
 		// parse submittime
-		submittime, stErr := time.Parse(slurmLayout, fields[qSUBMITTIME]+qc.slurmCommon.timeZone)
+		submittime, stErr := time.Parse(slurmLayout, fields[qSUBMITTIME]+"Z")
 		if stErr != nil {
 			log.Warnln(stErr.Error())
 			continue
@@ -244,7 +257,7 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 
 			// parse starttime and send wait time
 			if fields[qSTARTTIME] != nullStartTime {
-				starttime, sstErr := time.Parse(slurmLayout, fields[qSTARTTIME]+qc.slurmCommon.timeZone)
+				starttime, sstErr := time.Parse(slurmLayout, fields[qSTARTTIME]+"Z")
 				if sstErr == nil {
 					waitTimestamp := starttime.Unix() - submittime.Unix()
 					ch <- prometheus.MustNewConstMetric(

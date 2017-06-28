@@ -21,6 +21,7 @@ import (
 	"io"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/mso4sc/slurm_exporter/ssh"
 )
@@ -67,7 +68,22 @@ type SlurmCollector struct {
 	host     string
 	sshUser  string
 	sshPass  string
-	timeZone string
+	timeZone *time.Location
+}
+
+// NewSlurmCollector creates a new Slurm collector
+func NewSlurmCollector(host, sshUser, sshPass, timeZone string) (*SlurmCollector, error) {
+	newSlurmCollector := &SlurmCollector{
+		host:    host,
+		sshUser: sshUser,
+		sshPass: sshPass,
+	}
+	loc, err := time.LoadLocation(timeZone)
+	if err != nil {
+		return nil, err
+	}
+	newSlurmCollector.timeZone = loc
+	return newSlurmCollector, nil
 }
 
 func (sc *SlurmCollector) executeSSHCommand(cmd string, stdout, stderr io.Writer) error {

@@ -40,25 +40,25 @@ const (
 // InfoCollector collects metrics from Slurm info
 type InfoCollector struct {
 	partitionNodes *prometheus.Desc
-	slurmCommon    SlurmCollector
+	slurmCommon    *SlurmCollector
 }
 
 // NewInfoCollector creates a new Slurm Info collector
 func NewInfoCollector(host, sshUser, sshPass, timeZone string) *InfoCollector {
-	return &InfoCollector{
+	newInfoCollector := &InfoCollector{
 		partitionNodes: prometheus.NewDesc(
 			"partition_nodes",
 			"Nodes of the partition",
 			[]string{"partition", "availability", "state"},
 			nil,
 		),
-		slurmCommon: SlurmCollector{
-			host:     host,
-			sshUser:  sshUser,
-			sshPass:  sshPass,
-			timeZone: timeZone,
-		},
 	}
+	newSlurmCommon, err := NewSlurmCollector(host, sshUser, sshPass, timeZone)
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+	newInfoCollector.slurmCommon = newSlurmCommon
+	return newInfoCollector
 }
 
 // Describe sends metrics descriptions of this collector
