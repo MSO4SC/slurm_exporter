@@ -109,11 +109,7 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 			continue
 		}
 
-		// send num of nodes
-
-		// TODO(emepetres): three metrics, each for state in iSTATES
-		// thin-interactive        up         1/1/0/2
-		// "allocated/idle/other/total" should be in percentage!
+		// send num of nodes per state and partition
 		nodesByStatus := strings.Split(fields[iSTATES], "/")
 		if len(nodesByStatus) != iSTATESNUMBER+1 {
 			log.Warnln("Wrong parse of " + fields[iSTATES])
