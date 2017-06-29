@@ -26,16 +26,29 @@ import (
 )
 
 const (
+	infoCommand   = "sinfo -h -o \"%20P %.5a %.15F\""
+	iSTATESNUMBER = 3
+)
+
+var iSTATESNAMES = [3]string{"allocated", "idle", "other"}
+
+const (
 	iPARTITION = iota
 	iAVAIL     = iota
-	iSTATE     = iota
-	iNODES     = iota
+	iSTATES    = iota
 	iFIELDS    = iota
 )
 
-const (
-	infoCommand = "sinfo -h -o \"%12P %.5a %.6t %.6D\""
-)
+func sinfoLineParser(line string) []string {
+	fields := strings.Fields(line)
+
+	if len(fields) != iFIELDS {
+		log.Warnf("sinfo line parse failed (%s): %d fields expected, %d parsed", line, iFIELDS, len(fields))
+		return nil
+	}
+
+	return fields
+}
 
 // InfoCollector collects metrics from Slurm info
 type InfoCollector struct {
@@ -88,7 +101,7 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 	// wait for stdout to fill (it is being filled async by ssh)
 	time.Sleep(100 * time.Millisecond)
 
-	nextLine := nextLineIterator(&stdout, strings.Fields)
+	nextLine := nextLineIterator(&stdout, sinfoLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
 		// check the line is correctly parsed
 		if err != nil {
@@ -97,18 +110,38 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		// send num of nodes
-		nodes, nodesOk := strconv.Atoi(fields[iNODES])
-		if nodesOk == nil {
-			ch <- prometheus.MustNewConstMetric(
-				ic.partitionNodes,
-				prometheus.GaugeValue,
-				float64(nodes),
-				fields[iPARTITION], fields[iAVAIL], fields[iSTATE],
-			)
-			collected++
-		} else {
-			log.Warnf(nodesOk.Error())
+
+		// TODO(emepetres): three metrics, each for state in iSTATES
+		// thin-interactive        up         1/1/0/2
+		// "allocated/idle/other/total" should be in percentage!
+		nodesByStatus := strings.Split(fields[iSTATES], "/")
+		if len(nodesByStatus) != iSTATESNUMBER+1 {
+			log.Warnln("Wrong parse of " + fields[iSTATES])
+			continue
 		}
+		total, totalOk := strconv.ParseFloat(nodesByStatus[iSTATESNUMBER], 64)
+		if totalOk != nil {
+			log.Warnln(totalOk.Error())
+			continue
+		}
+
+		var percentage float64
+		for i := 0; i < iSTATESNUMBER; i++ {
+			nodes, nodesOk := strconv.ParseFloat(nodesByStatus[i], 64)
+			if nodesOk == nil {
+				percentage = nodes / total * 100
+				ch <- prometheus.MustNewConstMetric(
+					ic.partitionNodes,
+					prometheus.GaugeValue,
+					percentage,
+					fields[iPARTITION], fields[iAVAIL], iSTATESNAMES[i],
+				)
+			} else {
+				log.Warnf(nodesOk.Error())
+			}
+		}
+		collected++
+
 	}
 	log.Infof("%d partition info collected", collected)
 }

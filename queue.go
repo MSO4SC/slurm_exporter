@@ -58,7 +58,7 @@ const (
 func squeueLineParser(line string) []string {
 	// check if line is long enough
 	if len(line) < 20*(qFIELDS-1)+1 {
-		log.Warnf("Slurm line not long enough: \"" + line + "\"")
+		log.Warnln("Slurm line not long enough: \"" + line + "\"")
 		return nil
 	}
 
@@ -75,6 +75,17 @@ func squeueLineParser(line string) []string {
 	}
 
 	return result
+}
+
+func sacctLineParser(line string) []string {
+	fields := strings.Fields(line)
+
+	if len(fields) != aFIELDS {
+		log.Warnf("sacct line parse failed (%s): %d fields expected, %d parsed", line, aFIELDS, len(fields))
+		return nil
+	}
+
+	return fields
 }
 
 // QueueCollector collects metrics from the Slurm queues
@@ -165,7 +176,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 	time.Sleep(100 * time.Millisecond)
 	qc.setLastTime()
 
-	nextLine := nextLineIterator(&stdout, strings.Fields)
+	nextLine := nextLineIterator(&stdout, sacctLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
 		// check the line is correctly parsed
 		if err != nil {
