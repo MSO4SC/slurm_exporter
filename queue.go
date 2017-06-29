@@ -38,20 +38,18 @@ const (
 )
 
 const (
-	aJOBID     = iota
-	aNAME      = iota
-	aUSERNAME  = iota
-	aPARTITION = iota
-	aALLOCCPUS = iota
-	aSTATE     = iota
-	aFIELDS    = iota
+	aJOBID    = iota
+	aNAME     = iota
+	aUSERNAME = iota
+	aSTATE    = iota
+	aFIELDS   = iota
 )
 
 const (
 	slurmLayout   = time.RFC3339
-	queueCommand  = "squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state"
+	queueCommand  = "squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state -P"
 	nullStartTime = "N/A"
-	acctCommand   = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,ReqCPUS,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
+	acctCommand   = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
 )
 
 // TODO(emepetres): can be optimised doing at the same time Trim+alloc
@@ -80,7 +78,7 @@ func squeueLineParser(line string) []string {
 func sacctLineParser(line string) []string {
 	fields := strings.Fields(line)
 
-	if len(fields) != aFIELDS {
+	if len(fields) < aFIELDS {
 		log.Warnf("sacct line parse failed (%s): %d fields expected, %d parsed", line, aFIELDS, len(fields))
 		return nil
 	}
@@ -109,7 +107,7 @@ func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector 
 		status: prometheus.NewDesc(
 			"job_status",
 			"Status of the job",
-			[]string{"jobid", "name", "username", "partition", "numcpus"},
+			[]string{"jobid", "name", "username"},
 			nil,
 		),
 		alreadyRegistered: make([]string, 0),
@@ -168,7 +166,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 		&stderr)
 
 	if err != nil {
-		log.Errorln(err.Error())
+		log.Errorf("sacct: %s", err.Error())
 		return
 	}
 
@@ -193,14 +191,13 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 					prometheus.GaugeValue,
 					float64(status),
 					fields[aJOBID], fields[aNAME], fields[aUSERNAME],
-					fields[aPARTITION], fields[aALLOCCPUS],
 				)
 				qc.alreadyRegistered = append(qc.alreadyRegistered, fields[aJOBID])
 				//log.Debugln("Job " + fields[aJOBID] + " finished with state " + fields[aSTATE])
 				collected++
 			}
 		} else {
-			log.Warnf("Couldn't parse job status: %s", fields[aSTATE])
+			log.Warnf("Couldn't parse job status: '%s', fields '%s'", fields[aSTATE], strings.Join(fields, "|"))
 		}
 	}
 
@@ -239,6 +236,7 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 	time.Sleep(100 * time.Millisecond)
 
 	// remove already registered map memory from sacct when finished
+	lastJob := ""
 	nextLine := nextLineIterator(&stdout, squeueLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
 		// check the line is correctly parsed
@@ -257,14 +255,16 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 		// parse and send job state
 		status, statusOk := StatusDict[fields[qSTATE]]
 		if statusOk {
-			ch <- prometheus.MustNewConstMetric(
-				qc.status,
-				prometheus.GaugeValue,
-				float64(status),
-				fields[qJOBID], fields[qNAME], fields[qUSERNAME],
-				fields[qPARTITION], fields[qNUMCPUS],
-			)
-			collected++
+			if lastJob != fields[qJOBID] {
+				ch <- prometheus.MustNewConstMetric(
+					qc.status,
+					prometheus.GaugeValue,
+					float64(status),
+					fields[qJOBID], fields[qNAME], fields[qUSERNAME],
+				)
+				lastJob = fields[qJOBID]
+				collected++
+			}
 
 			// parse starttime and send wait time
 			if fields[qSTARTTIME] != nullStartTime {
