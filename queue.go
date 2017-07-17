@@ -228,7 +228,13 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 		&stderr)
 
 	if err != nil {
-		log.Errorln(err.Error())
+		msg := err.Error()
+		possibleExitCode := msg[len(msg)-1:]
+		if possibleExitCode != "1" {
+			log.Errorln(msg)
+		} else {
+			log.Debugln("No queued jobs collected")
+		}
 		return
 	}
 

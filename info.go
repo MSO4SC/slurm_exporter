@@ -88,6 +88,7 @@ func (ic *InfoCollector) Collect(ch chan<- prometheus.Metric) {
 	log.Debugln("Collecting Info metrics...")
 	var stdout, stderr bytes.Buffer
 	var collected uint
+	log.Debugln(infoCommand)
 	err := ic.slurmCommon.executeSSHCommand(
 		infoCommand,
 		&stdout,
