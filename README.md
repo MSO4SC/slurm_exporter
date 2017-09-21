@@ -2,9 +2,6 @@
 
 Server that collects metrics from Slurm and exposes them in the Prometheus format.
 
-## Requirements
-
-
 ## Install
 
 > Requires Go >=1.8
