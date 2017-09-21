@@ -19,7 +19,7 @@ slurm_exporter -host=<HOST> -ssh-user=<USER> -ssh-password=<PASSWD> [-listen-add
 
 ### Defaults
 
-<PORT>: `:9100`
-<HOST>: `localhost`, not supported
-<TZ>: `Europe/Madrid`
-<LOGLEVEL>: `error`
+\<PORT\>: `:9100`
+\<HOST\>: `localhost`, not supported
+\<TZ\>: `Europe/Madrid`
+\<LOGLEVEL\>: `error`
