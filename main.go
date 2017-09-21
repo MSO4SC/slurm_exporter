@@ -27,7 +27,7 @@ import (
 var (
 	addr = flag.String(
 		"listen-address",
-		":8080",
+		":9100",
 		"The address to listen on for HTTP requests.",
 	)
 	host = flag.String(
@@ -52,11 +52,12 @@ var (
 	)
 )
 
-func init() {
+func main() {
 	flag.Parse()
 
 	// Flags check
 	if *host == "localhost" {
+		flag.Usage()
 		log.Fatalln("Localhost slurm connection not implemented yet.")
 	} else {
 		if *sshUser == "" {
@@ -71,9 +72,7 @@ func init() {
 
 	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *countryTZ))
 	prometheus.MustRegister(NewInfoCollector(*host, *sshUser, *sshPass, *countryTZ))
-}
 
-func main() {
 	// Expose the registered metrics via HTTP.
 	log.Infof("Starting Server: %s", *addr)
 	http.Handle("/metrics", promhttp.Handler())

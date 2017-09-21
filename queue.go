@@ -234,6 +234,7 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 			log.Errorln(msg)
 		} else {
 			log.Debugln("No queued jobs collected")
+			//TODO(emepetres) ¿¿supply metrics when no job data is available??
 		}
 		return
 	}
