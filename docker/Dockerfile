@@ -14,7 +14,7 @@
 
 FROM golang:1.9-alpine
 
-MAINTAINER javier.carnero@atos.net
+LABEL maintainer="javier.carnero@atos.net"
 
 RUN mkdir /app
 WORKDIR /app
@@ -28,7 +28,7 @@ RUN apk add --update --no-cache git
 RUN go get github.com/mso4sc/slurm_exporter
 
 # Install slurm exporter
-RUN $GOPATH/src/github.com/mso4sc/slurm_exporter/utils/install.sh
+RUN /bin/bash $GOPATH/src/github.com/mso4sc/slurm_exporter/utils/install.sh
 
 EXPOSE 9100
 
