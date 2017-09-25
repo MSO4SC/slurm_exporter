@@ -17,6 +17,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -25,6 +26,8 @@ import (
 )
 
 var (
+	version = "20170925"
+
 	addr = flag.String(
 		"listen-address",
 		":9100",
@@ -53,6 +56,7 @@ var (
 )
 
 func main() {
+	fmt.Println("Version: " + version)
 	flag.Parse()
 
 	// Flags check
