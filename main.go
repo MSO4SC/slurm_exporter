@@ -17,17 +17,14 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/prometheus/common/log"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
-	version = "20170925"
-
 	addr = flag.String(
 		"listen-address",
 		":9100",
@@ -53,11 +50,24 @@ var (
 		"Europe/Madrid",
 		"Country Time zone of the host, (e.g. \"Europe/Madrid\").",
 	)
+	logLevel = flag.String(
+		"log-level",
+		"error",
+		"Log level of the Application.",
+	)
 )
 
 func main() {
-	fmt.Println("Version: " + version)
 	flag.Parse()
+
+	// Parse and set log lovel
+	level, err := log.ParseLevel(*logLevel)
+	if err == nil {
+		log.SetLevel(level)
+	} else {
+		log.SetLevel(log.WarnLevel)
+		log.Warnf("Log level %s not recognized, setting \"warn\" as default.")
+	}
 
 	// Flags check
 	if *host == "localhost" {

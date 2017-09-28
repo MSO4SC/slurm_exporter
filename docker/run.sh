@@ -15,7 +15,7 @@
 # limitations under the License.
 
 if [[ $# < 3 ]] ; then
-    echo 'Usage: '$0' -host=<HOST> -ssh-user=<USER> -ssh-password=<PASSWD> [-countrytz=<TZ>] [-log.level=<LOGLEVEL>]' 
+    echo 'Usage: '$0' -host=<HOST> -ssh-user=<USER> -ssh-password=<PASSWD> [-countrytz=<TZ>] [-log-level=<LOGLEVEL>]' 
     exit 1
 fi
 
