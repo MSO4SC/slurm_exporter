@@ -66,7 +66,7 @@ func main() {
 		log.SetLevel(level)
 	} else {
 		log.SetLevel(log.WarnLevel)
-		log.Warnf("Log level %s not recognized, setting \"warn\" as default.")
+		log.Warnf("Log level %s not recognized, setting 'warn' as default.")
 	}
 
 	// Flags check
