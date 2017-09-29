@@ -27,7 +27,7 @@ if [[ $# > 4 ]] ; then
 	ARGS=$ARGS' '$5
 fi
 
-ID=$(docker run --rm -p 9100 mso4sc/slurm_exporter $ARGS)
+ID=$(docker run --rm -d -p 9100 mso4sc/slurm_exporter $ARGS)
 
 # Get dynamic port in host
 PORT=$(docker ps --no-trunc|grep $ID|sed 's/.*0.0.0.0://g'|sed 's/->.*//g')
