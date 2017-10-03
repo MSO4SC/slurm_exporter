@@ -26,3 +26,7 @@ slurm_exporter -host=<HOST> -ssh-user=<USER> -ssh-password=<PASSWD> [-listen-add
 \<TZ\>: `Europe/Madrid`  
 \<LOGLEVEL\>: `error`  
 
+## Docker
+
+https://hub.docker.com/r/mso4sc/slurm_exporter/
+
