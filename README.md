@@ -1,6 +1,8 @@
 # Slurm Prometheus Exporter
 
-Server that collects metrics from Slurm and exposes them in the Prometheus format. The exporter access SLURM by ssh, tipically running in a outside machine that can reach the HPC (in fact running locally is not supported right now).
+Server that collects metrics from Slurm and exposes them in the Prometheus format. The exporter access SLURM by ssh, tipically running in a outside machine that can reach the HPC.  
+
+Run it in the same machine as slurm is not supported right now.  
 
 ## Install
 
@@ -19,7 +21,8 @@ slurm_exporter -host=<HOST> -ssh-user=<USER> -ssh-password=<PASSWD> [-listen-add
 
 ### Defaults
 
-\<PORT\>: `:9100`
-\<HOST\>: `localhost`, not supported
-\<TZ\>: `Europe/Madrid`
-\<LOGLEVEL\>: `error`
+\<PORT\>: `:9100`  
+\<HOST\>: `localhost`, not supported  
+\<TZ\>: `Europe/Madrid`  
+\<LOGLEVEL\>: `error`  
+
