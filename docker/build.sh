@@ -14,4 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-docker build -t mso4sc/slurm_exporter –-no-cache .
+docker build --no-cache -t mso4sc/slurm_exporter .
