@@ -2,7 +2,7 @@
 
 Prometheus exporter that publish Slurm metrics from a remote HPC (connected by ssh).  
 
-### Usage
+## Usage
 
 ```
 # docker run --rm -d -p 9100:9100 mso4sc/slurm_exporter -host=<HOST> -ssh-user=<USER> -ssh-password=<PASSWD>
@@ -19,7 +19,7 @@ $ curl localhost:9100/metrics
 One script helps working with docker:  
 `run.sh` runs a new exporter in a new container. It returns the container ID and HOST PORT.
 
-## Development
+### Development
 
 Two scripts help building and publishing the image.  
 `build.sh` build the image using the Dockerfile

@@ -19,17 +19,16 @@ LABEL maintainer="javier.carnero@atos.net"
 RUN mkdir /app
 WORKDIR /app
 
-# Install bash, bash-completion and git
-RUN apk add --update --no-cache bash
-RUN apk add --update --no-cache bash-completion
+# Install git
 RUN apk add --update --no-cache git
 
 # Get slurm exporter
 RUN go get github.com/mso4sc/slurm_exporter
 
 # Install slurm exporter
-RUN /bin/bash $GOPATH/src/github.com/mso4sc/slurm_exporter/utils/install.sh
+RUN /bin/sh $GOPATH/src/github.com/mso4sc/slurm_exporter/utils/install.sh
 
 EXPOSE 9100
 
 ENTRYPOINT ["slurm_exporter", "-listen-address", ":9100"]
+
