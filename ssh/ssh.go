@@ -14,6 +14,7 @@
 package ssh
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -27,21 +28,29 @@ import (
 )
 
 type SSHCommand struct {
-	Path   string
-	Env    []string
-	Stdin  io.Reader
-	Stdout io.Writer
-	Stderr io.Writer
+	Path string
+	Env  []string
 }
 
-type SSHClient struct {
+type SSHConfig struct {
 	Config *ssh.ClientConfig
 	Host   string
 	Port   int
 }
 
-func NewSSHClientByPassword(user, password, host string, port int) *SSHClient {
-	return &SSHClient{
+type SSHClient struct {
+	*ssh.Client
+}
+
+type SSHSession struct {
+	*ssh.Session
+	InBuffer  *bytes.Buffer
+	OutBuffer *bytes.Buffer
+	ErrBuffer *bytes.Buffer
+}
+
+func NewSSHConfigByPassword(user, password, host string, port int) *SSHConfig {
+	return &SSHConfig{
 		Config: &ssh.ClientConfig{
 			User: user,
 			Auth: []ssh.AuthMethod{
@@ -55,8 +64,8 @@ func NewSSHClientByPassword(user, password, host string, port int) *SSHClient {
 	}
 }
 
-func NewSSHClientByCertificate(user, key_file, host string, port int) *SSHClient {
-	return &SSHClient{
+func NewSSHConfigByCertificate(user, key_file, host string, port int) *SSHConfig {
+	return &SSHConfig{
 		Config: &ssh.ClientConfig{
 			User: user,
 			Auth: []ssh.AuthMethod{
@@ -70,8 +79,8 @@ func NewSSHClientByCertificate(user, key_file, host string, port int) *SSHClient
 	}
 }
 
-func NewSSHClientByAgent(user, host string, port int) *SSHClient {
-	return &SSHClient{
+func NewSSHConfigByAgent(user, host string, port int) *SSHConfig {
+	return &SSHConfig{
 		Config: &ssh.ClientConfig{
 			User: user,
 			Auth: []ssh.AuthMethod{
@@ -85,26 +94,78 @@ func NewSSHClientByAgent(user, host string, port int) *SSHClient {
 	}
 }
 
-func (client *SSHClient) RunCommand(cmd *SSHCommand) error {
-	var (
-		session *ssh.Session
-		err     error
-	)
+func (config *SSHConfig) NewClient() (*SSHClient, error) {
+	client, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", config.Host, config.Port), config.Config)
+	if err != nil {
+		return nil, err
+	}
+	return &SSHClient{client}, nil
+}
 
-	if session, err = client.newSession(); err != nil {
+func (client *SSHClient) OpenSession(inBuffer, outBuffer, errBuffer *bytes.Buffer) (*SSHSession, error) {
+	session, err := client.NewSession()
+	if err != nil {
+		return nil, err
+	}
+
+	modes := ssh.TerminalModes{
+		ssh.ECHO:          0,     // disable echoing
+		ssh.TTY_OP_ISPEED: 14400, // input speed = 14.4kbaud
+		ssh.TTY_OP_OSPEED: 14400, // output speed = 14.4kbaud
+	}
+
+	if err := session.RequestPty("xterm", 80, 40, modes); err != nil {
+		session.Close()
+		return nil, err
+	}
+
+	// Setup the buffers
+	ses := &SSHSession{Session: session, InBuffer: inBuffer, OutBuffer: outBuffer, ErrBuffer: errBuffer}
+	if err := ses.setupSessionBuffers(); err != nil {
+		return nil, err
+	}
+	return ses, nil
+}
+
+func (session *SSHSession) setupSessionBuffers() error {
+	if session.InBuffer != nil {
+		stdin, err := session.StdinPipe()
+		if err != nil {
+			return err
+		}
+		go io.Copy(stdin, session.InBuffer)
+	}
+
+	if session.OutBuffer != nil {
+		stdout, err := session.StdoutPipe()
+		if err != nil {
+			return err
+		}
+		go io.Copy(session.OutBuffer, stdout)
+	}
+
+	if session.ErrBuffer != nil {
+		stderr, err := session.StderrPipe()
+		if err != nil {
+			return err
+		}
+		go io.Copy(session.ErrBuffer, stderr)
+	}
+
+	return nil
+}
+
+func (session *SSHSession) RunCommand(cmd *SSHCommand) error {
+	if err := session.setupCommand(cmd); err != nil {
 		return err
 	}
-	defer session.Close()
 
-	if err = client.prepareCommand(session, cmd); err != nil {
-		return err
-	}
-
-	err = session.Run(cmd.Path)
+	err := session.Run(cmd.Path)
 	return err
 }
 
-func (client *SSHClient) prepareCommand(session *ssh.Session, cmd *SSHCommand) error {
+func (session *SSHSession) setupCommand(cmd *SSHCommand) error {
+	// TODO(emepetres) clear env before setting a new one?
 	for _, env := range cmd.Env {
 		variable := strings.Split(env, "=")
 		if len(variable) != 2 {
@@ -116,56 +177,7 @@ func (client *SSHClient) prepareCommand(session *ssh.Session, cmd *SSHCommand) e
 		}
 	}
 
-	if cmd.Stdin != nil {
-		stdin, err := session.StdinPipe()
-		if err != nil {
-			return fmt.Errorf("Unable to setup stdin for session: %v", err)
-		}
-		go io.Copy(stdin, cmd.Stdin)
-	}
-
-	if cmd.Stdout != nil {
-		stdout, err := session.StdoutPipe()
-		if err != nil {
-			return fmt.Errorf("Unable to setup stdout for session: %v", err)
-		}
-		go io.Copy(cmd.Stdout, stdout)
-	}
-
-	if cmd.Stderr != nil {
-		stderr, err := session.StderrPipe()
-		if err != nil {
-			return fmt.Errorf("Unable to setup stderr for session: %v", err)
-		}
-		go io.Copy(cmd.Stderr, stderr)
-	}
-
 	return nil
-}
-
-func (client *SSHClient) newSession() (*ssh.Session, error) {
-	connection, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", client.Host, client.Port), client.Config)
-	if err != nil {
-		return nil, fmt.Errorf("Failed to dial: %s", err)
-	}
-
-	session, err := connection.NewSession()
-	if err != nil {
-		return nil, fmt.Errorf("Failed to create session: %s", err)
-	}
-
-	modes := ssh.TerminalModes{
-		ssh.ECHO:          0,     // disable echoing
-		ssh.TTY_OP_ISPEED: 14400, // input speed = 14.4kbaud
-		ssh.TTY_OP_OSPEED: 14400, // output speed = 14.4kbaud
-	}
-
-	if err := session.RequestPty("xterm", 80, 40, modes); err != nil {
-		session.Close()
-		return nil, fmt.Errorf("request for pseudo terminal failed: %s", err)
-	}
-
-	return session, nil
 }
 
 func PublicKeyFile(file string) ssh.AuthMethod {

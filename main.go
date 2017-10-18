@@ -85,7 +85,6 @@ func main() {
 	}
 
 	prometheus.MustRegister(NewQueueCollector(*host, *sshUser, *sshPass, *countryTZ))
-	prometheus.MustRegister(NewInfoCollector(*host, *sshUser, *sshPass, *countryTZ))
 
 	// Expose the registered metrics via HTTP.
 	log.Infof("Starting Server: %s", *addr)

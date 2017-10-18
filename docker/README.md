@@ -16,8 +16,7 @@ $ curl localhost:9100/metrics
 # HELP ....
 ```
 
-One script helps working with docker:  
+One script in docker folder helps working with docker:  
 `run.sh` runs a new exporter in a new container. It returns the container ID and HOST PORT.
 
 To build the image locally, the script `build.sh` helps doing it.
-
