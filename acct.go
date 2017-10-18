@@ -25,15 +25,16 @@ import (
 )
 
 const (
-	aJOBID    = iota
-	aNAME     = iota
-	aUSERNAME = iota
-	aSTATE    = iota
-	aFIELDS   = iota
+	aJOBID     = iota
+	aNAME      = iota
+	aUSERNAME  = iota
+	aPARTITION = iota
+	aSTATE     = iota
+	aFIELDS    = iota
 )
 
 const (
-	acctCommand = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
+	acctCommand = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
 )
 
 func (sc *SlurmCollector) collectAcct(ch chan<- prometheus.Metric) {
@@ -83,7 +84,7 @@ func (sc *SlurmCollector) collectAcct(ch chan<- prometheus.Metric) {
 					sc.status,
 					prometheus.GaugeValue,
 					float64(status),
-					fields[aJOBID], fields[aNAME], fields[aUSERNAME],
+					fields[aJOBID], fields[aNAME], fields[aUSERNAME], fields[aPARTITION],
 				)
 				sc.alreadyRegistered = append(sc.alreadyRegistered, fields[aJOBID])
 				//log.Debugln("Job " + fields[aJOBID] + " finished with state " + fields[aSTATE])

@@ -90,7 +90,7 @@ func NewSlurmCollector(host, sshUser, sshPass, timeZone string) *SlurmCollector 
 		status: prometheus.NewDesc(
 			"job_status",
 			"Status of the job",
-			[]string{"jobid", "name", "username"},
+			[]string{"jobid", "name", "username", "partition"},
 			nil,
 		),
 		partitionNodes: prometheus.NewDesc(
@@ -246,6 +246,7 @@ func nextLineIterator(buf io.Reader, parser func(string) []string) func() ([]str
 		if err != nil {
 			return nil, err
 		}
+		// fmt.Print(line)
 
 		// parse the line and return
 		parsed := parse(line)

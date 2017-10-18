@@ -104,7 +104,7 @@ func (sc *SlurmCollector) collectQueue(ch chan<- prometheus.Metric) {
 					sc.status,
 					prometheus.GaugeValue,
 					float64(status),
-					fields[qJOBID], fields[qNAME], fields[qUSERNAME],
+					fields[qJOBID], fields[qNAME], fields[qUSERNAME], fields[qPARTITION],
 				)
 				lastJob = fields[qJOBID]
 				collected++

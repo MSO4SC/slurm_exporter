@@ -1,0 +1,724 @@
+Collecting Acct metrics..." 
+sacct -n -a -X -o "JobIDRaw,JobName%20,User%20,State%20" -S19:36:30 -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\|COMPLETING\|RUNNING'" 
+93512                GENIBIPRODDM                ibide            COMPLETED 
+93513                GENIBIPRODDM                ibide            COMPLETED 
+93514                  MERGEREADM                ibide            COMPLETED 
+93515                     noac188              ub07143            COMPLETED 
+time="2017-10-18T19:37:43+02:00" level=info msg="4 finished jobs collected" 
+Collecting Queue metrics..." 
+squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state -P | grep -v '93512\|93513\|93514\|93515'" 
+92841               ion66               ub07143             thinnodes           72                  2017-10-18T15:34:31 2017-10-18T17:43:20 RUNNING             
+92815               snap.001_concat_ado_uvibedpg            shared              20                  2017-10-18T15:22:37 2017-10-18T15:22:55 RUNNING             
+92843               snap.002_concat_snpsuvibedpg            shared              20                  2017-10-18T15:38:45 2017-10-18T15:38:55 RUNNING             
+92842               snap.002_concat_ado_uvibedpg            shared              20                  2017-10-18T15:38:45 2017-10-18T15:38:55 RUNNING             
+92845               snap.003_concat_snpsuvibedpg            shared              20                  2017-10-18T15:39:17 2017-10-18T15:39:55 RUNNING             
+92844               snap.003_concat_ado_uvibedpg            shared              20                  2017-10-18T15:39:17 2017-10-18T15:39:55 RUNNING             
+92981               cts_c3_ReSi2_SEG_Opiuviqopvc            shared              16                  2017-10-18T16:43:07 2017-10-18T16:44:06 RUNNING             
+92993               ts3_dRR2_OAc.sh     uviqopvc            shared              16                  2017-10-18T16:54:19 2017-10-18T16:55:07 RUNNING             
+92808               snap.003_concat_ado_uvibehde            shared              20                  2017-10-18T15:17:48 2017-10-18T15:17:55 RUNNING             
+92807               snap.002_concat_snpsuvibehde            shared              20                  2017-10-18T15:17:35 2017-10-18T15:17:55 RUNNING             
+92806               snap.002_concat_ado_uvibehde            shared              20                  2017-10-18T15:17:35 2017-10-18T15:17:55 RUNNING             
+92805               snap.001_concat_snpsuvibehde            shared              20                  2017-10-18T15:16:55 2017-10-18T15:17:55 RUNNING             
+92836               GOLS23062016.sh     uscfmmpf            thinnodes           24                  2017-10-18T15:30:47 2017-10-18T16:23:45 RUNNING             
+92918               snap.003_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:40 2017-10-18T15:55:59 RUNNING             
+92917               snap.002_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:36 2017-10-18T15:55:59 RUNNING             
+92916               snap.002_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:36 2017-10-18T15:55:59 RUNNING             
+92915               snap.001_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:32 2017-10-18T15:55:59 RUNNING             
+92914               snap.001_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:32 2017-10-18T15:55:59 RUNNING             
+92861               GOLS24062016.sh     uscfmmpf            thinnodes           24                  2017-10-18T15:44:22 2017-10-18T17:02:19 RUNNING             
+81419               snap.001_concat_ado_uvibehde            shared              20                  2017-10-16T19:20:47 2017-10-16T19:21:09 RUNNING             
+93198               runWRF.sh           uscfmmpf            thinnodes           48                  2017-10-18T18:08:42 2017-10-18T19:14:32 RUNNING             
+3342                spleen3             ulcmmhcp            thinnodes           192                 2017-10-04T03:57:10 2017-10-16T10:05:22 RUNNING             
+92929               GOLS30062016.sh     uscfmmpf            iphinodes           24                  2017-10-18T15:59:43 2017-10-18T17:58:10 RUNNING             
+93033               ts3g_07_11_fine.pbs uviqomml            shared              20                  2017-10-18T17:28:11 2017-10-18T17:28:59 RUNNING             
+92080               counter_antiparalelouscqojgg            shared              8                   2017-10-18T11:12:13 2017-10-18T11:12:31 RUNNING             
+92079               counter_paralelo.sh uscqojgg            shared              8                   2017-10-18T11:11:58 2017-10-18T11:12:31 RUNNING             
+92078               counter_antiparalelouscqojgg            shared              8                   2017-10-18T11:11:47 2017-10-18T11:12:31 RUNNING             
+92077               counter_paralelo.sh uscqojgg            shared              8                   2017-10-18T11:11:37 2017-10-18T11:12:31 RUNNING             
+92167               sp_anti.sh          uscqojgg            shared              8                   2017-10-18T11:17:39 2017-10-18T11:18:33 RUNNING             
+92166               sp_paralelo.sh      uscqojgg            shared              8                   2017-10-18T11:17:32 2017-10-18T11:18:33 RUNNING             
+92169               sp_anti.sh          uscqojgg            shared              8                   2017-10-18T11:19:16 2017-10-18T11:19:33 RUNNING             
+92168               sp_paralelo.sh      uscqojgg            shared              8                   2017-10-18T11:19:09 2017-10-18T11:19:33 RUNNING             
+80909               ts3g_07_11.pbs      uviqomml            shared              20                  2017-10-16T13:21:19 2017-10-16T13:21:40 RUNNING             
+80910               ts3g_07_12.pbs      uviqomml            shared              20                  2017-10-16T13:22:50 2017-10-16T13:23:38 RUNNING             
+80911               ts3g_07_13.pbs      uviqomml            shared              20                  2017-10-16T13:27:28 2017-10-16T13:27:40 RUNNING             
+93018               TSIVb-As_PdAu_conf1_uviqoaag            shared              16                  2017-10-18T17:13:47 2017-10-18T17:14:06 RUNNING             
+93017               TSIVb-As_PdAu_conf1_uviqoaag            shared              16                  2017-10-18T17:13:47 2017-10-18T17:14:06 RUNNING             
+92880               scanprTSprueba_enantuviqorar            shared              6                   2017-10-18T15:48:44 2017-10-18T15:48:59 RUNNING             
+92889               scanpr_1.sh         uviqorar            shared              6                   2017-10-18T15:51:13 2017-10-18T15:51:59 RUNNING             
+92846               PPh3.sh             uviqorar            shared              4                   2017-10-18T15:39:23 2017-10-18T15:39:55 RUNNING             
+91973               TS_pruebaPPh3_CF3.shuviqorar            shared              5                   2017-10-18T09:40:48 2017-10-18T09:41:23 RUNNING             
+76030               samtools            uscmejbl            gpu-shared-k2       1                   2017-10-15T23:15:35 2017-10-15T23:16:01 RUNNING             
+76031               samtools            uscmejbl            gpu-shared-k2       1                   2017-10-15T23:16:04 2017-10-15T23:17:01 RUNNING             
+92026               run.sh              uscfpirs            thinnodes           24                  2017-10-18T10:34:43 2017-10-18T10:36:28 RUNNING             
+92028               run2.sh             uscfpirs            thinnodes           24                  2017-10-18T10:34:51 2017-10-18T10:36:28 RUNNING             
+73477               samtools            uscmejbl            iphinodes           24                  2017-10-15T18:10:56 2017-10-15T18:12:46 RUNNING             
+93385               sinF.sh             uscqojmc            shared              8                   2017-10-18T19:08:06 2017-10-18T19:08:18 RUNNING             
+93009               sinF.sh             uscqojmc            shared              8                   2017-10-18T17:05:27 2017-10-18T17:05:52 RUNNING             
+93010               sinF.sh             uscqojmc            shared              8                   2017-10-18T17:06:17 2017-10-18T17:07:06 RUNNING             
+93014               sinF.sh             uscqojmc            shared              8                   2017-10-18T17:08:12 2017-10-18T17:09:06 RUNNING             
+93389               sinF.sh             uscqojmc            shared              8                   2017-10-18T19:09:19 2017-10-18T19:11:18 RUNNING             
+93003               lanza1.sh           uscqfigv            shared              6                   2017-10-18T16:59:34 2017-10-18T17:00:06 RUNNING             
+93008               lanza1.sh           uscqfigv            shared              6                   2017-10-18T17:03:57 2017-10-18T17:04:06 RUNNING             
+86578               lanza4.sh           uscqfigv            shared              6                   2017-10-17T10:18:49 2017-10-17T10:19:39 RUNNING             
+86572               lanza1.sh           uscqfigv            shared              6                   2017-10-17T10:15:34 2017-10-17T10:15:40 RUNNING             
+86575               lanza3.sh           uscqfigv            shared              6                   2017-10-17T10:16:56 2017-10-17T10:17:39 RUNNING             
+86579               lanza5.sh           uscqfigv            shared              6                   2017-10-17T10:19:26 2017-10-17T10:19:39 RUNNING             
+86573               lanza2.sh           uscqfigv            shared              6                   2017-10-17T10:16:19 2017-10-17T10:16:39 RUNNING             
+80387               yaa2Alt9SinInd_3_3_5ulctidrc            shared              1                   2017-10-16T09:52:50 2017-10-16T09:53:22 RUNNING             
+80388               yaa2Alt9SinInd_3_3_5ulctidrc            shared              1                   2017-10-16T09:52:50 2017-10-16T09:53:22 RUNNING             
+92515               NewMesh.sh          ulcendrc            thinnodes           24                  2017-10-18T12:46:52 2017-10-18T12:48:48 RUNNING             
+91811               TSCH_seg_exo.sh     uviqoarl            shared              5                   2017-10-18T09:18:38 2017-10-18T09:19:08 RUNNING             
+91810               TSCH_seg_exo_1.sh   uviqoarl            shared              5                   2017-10-18T09:18:38 2017-10-18T09:19:08 RUNNING             
+92992               K_8_dynM.sh         ulcenlff            thinnodes           24                  2017-10-18T16:54:05 2017-10-18T17:02:19 RUNNING             
+92990               K_7_Int.sh          ulcenlff            thinnodes           24                  2017-10-18T16:52:06 2017-10-18T17:02:19 RUNNING             
+92933               K_6B_Int.sh         ulcenlff            thinnodes           24                  2017-10-18T16:03:35 2017-10-18T16:23:45 RUNNING             
+92932               K_6A_Int.sh         ulcenlff            thinnodes           24                  2017-10-18T16:02:21 2017-10-18T16:23:45 RUNNING             
+92564               run.sh              ulcmmrta            shared              1                   2017-10-18T13:11:33 2017-10-18T13:11:38 RUNNING             
+92753               run2.sh             ulcmmrta            shared              1                   2017-10-18T14:41:37 2017-10-18T14:41:51 RUNNING             
+92010               run2.sh             ulcmmrta            shared              1                   2017-10-18T10:17:18 2017-10-18T10:17:24 RUNNING             
+92008               a.sh                uvibeccs            thinnodes           24                  2017-10-18T10:14:47 2017-10-18T14:13:44 RUNNING             
+93495               andak               uscqfec2            thinnodes           24                  2017-10-18T09:17:09 2017-10-18T19:29:40 RUNNING             
+80153               y4bl11.sh           ulcctfni            thinnodes           48                  2017-10-16T09:07:25 2017-10-17T04:26:11 RUNNING             
+87873               nogpujob.sh         ulccoaal            thinnodes           24                  2017-10-17T19:10:39 2017-10-18T10:45:04 RUNNING             
+82833               HSeq2500            uvibgmsm            thinnodes           24                  2017-10-17T00:21:14 2017-10-17T15:54:32 RUNNING             
+80470               viv48.sh            ulcctaan            thinnodes           48                  2017-10-16T10:56:47 2017-10-17T14:59:59 RUNNING             
+80453               stc848.sh           ulcctaan            thinnodes           48                  2017-10-16T10:43:50 2017-10-17T14:59:59 RUNNING             
+80452               stc448.sh           ulcctaan            thinnodes           48                  2017-10-16T10:43:38 2017-10-17T14:59:59 RUNNING             
+80451               stc424.sh           ulcctaan            thinnodes           48                  2017-10-16T10:43:19 2017-10-17T14:59:59 RUNNING             
+80467               jobBimodalIICV.sh   uvieipsn            thinnodes           24                  2017-10-16T10:50:31 2017-10-17T14:59:59 RUNNING             
+80174               vr90.sh             ulcctfni            thinnodes           48                  2017-10-16T09:16:50 2017-10-17T14:58:48 RUNNING             
+80163               vr95.sh             ulcctfni            thinnodes           48                  2017-10-16T09:16:02 2017-10-17T14:58:48 RUNNING             
+80162               vr88.sh             ulcctfni            thinnodes           48                  2017-10-16T09:15:50 2017-10-17T14:58:48 RUNNING             
+80158               y4bl30.sh           ulcctfni            thinnodes           48                  2017-10-16T09:09:13 2017-10-17T14:58:48 RUNNING             
+87555               job_script.sh       otcfdmmg            thinnodes           24                  2017-10-17T17:19:20 2017-10-18T16:23:39 RUNNING             
+87487               forwardJOB2         uscgeacc            thinnodes           24                  2017-10-17T15:55:55 2017-10-18T16:23:39 RUNNING             
+49562               launcher.sh         upc90886            thinnodes           240                 2017-10-12T22:03:25 2017-10-18T16:23:39 RUNNING             
+69838               mda01gsm.txt        ulcqisrg            thin-shared         2                   2017-10-15T10:04:08 2017-10-17T01:07:22 RUNNING             
+70070               oda01ggs.txt        ulcqias             thin-shared         2                   2017-10-15T10:47:55 2017-10-17T07:50:43 RUNNING             
+69842               pdaa01gsm.txt       ulcqisrg            thin-shared         2                   2017-10-15T10:07:36 2017-10-17T07:48:59 RUNNING             
+80483               T4.sh               usceiafh            thin-shared         1                   2017-10-16T11:13:41 2017-10-18T16:25:23 RUNNING             
+80482               T2.sh               usceiafh            thin-shared         1                   2017-10-16T11:13:37 2017-10-18T16:25:23 RUNNING             
+70380               job_mod1_P1.sh      usceimca            thin-shared         1                   2017-10-15T11:29:44 2017-10-18T07:31:24 RUNNING             
+70381               job_mod1_P2.sh      usceimca            thin-shared         1                   2017-10-15T11:29:48 2017-10-18T09:28:39 RUNNING             
+70306               pd01gs.txt          ulcqisrg            thin-shared         2                   2017-10-15T11:16:54 2017-10-18T06:54:41 RUNNING             
+70170               odaa01gsmc.txt      ulcqimcl            thin-shared         4                   2017-10-15T11:06:12 2017-10-18T06:28:50 RUNNING             
+70160               pda01gsmc.txt       ulcqimcl            thin-shared         4                   2017-10-15T11:04:21 2017-10-18T06:27:04 RUNNING             
+70382               job_mod1_P3.sh      usceimca            thin-shared         1                   2017-10-15T11:29:51 2017-10-18T11:38:46 RUNNING             
+70383               job_mod1_P4.sh      usceimca            thin-shared         1                   2017-10-15T11:29:54 2017-10-18T17:44:57 RUNNING             
+70384               job_mod1_P5.sh      usceimca            thin-shared         1                   2017-10-15T11:29:57 2017-10-18T18:35:02 RUNNING             
+56819               cts_c3_SiSi2_SEG_Opiuviqopvc            shared              16                  2017-10-13T11:16:59 2017-10-16T22:20:16 RUNNING             
+56820               cts_c3_SiRe2_SEG_Opiuviqopvc            shared              16                  2017-10-13T11:16:59 2017-10-17T06:15:26 RUNNING             
+56821               cts_c3_SiSi2_SEG_Opiuviqopvc            shared              16                  2017-10-13T11:16:59 2017-10-17T08:51:34 RUNNING             
+87470               run02134            csfamorv            shared              16                  2017-10-17T15:52:08 2017-10-17T15:52:41 RUNNING             
+87550               LamTt9D             csiftjmm            thinnodes           240                 2017-10-17T17:15:45 2017-10-17T20:20:22 RUNNING             
+92197               12DFin              csiftjmm            thinnodes           360                 2017-10-18T11:34:35 2017-10-18T11:58:36 RUNNING             
+92528               NPT0s8.sh           cstsmsit            thinnodes           48                  2017-10-18T12:50:03 2017-10-18T12:50:30 RUNNING             
+92529               NPTs8.sh            cstsmsit            thinnodes           48                  2017-10-18T12:51:19 2017-10-18T12:51:37 RUNNING             
+64401               M2tanB              csiftjmm            thinnodes           240                 2017-10-14T17:44:18 2017-10-14T18:01:05 RUNNING             
+91641               run02110            csfamorv            thinnodes           48                  2017-10-18T08:47:14 2017-10-18T09:38:13 RUNNING             
+91640               run02106            csfamorv            thinnodes           48                  2017-10-18T08:46:39 2017-10-18T09:38:13 RUNNING             
+92546               CASTEP-test         csmccrfe            thinnodes           96                  2017-10-18T12:57:30 2017-10-18T12:57:37 RUNNING             
+92597               Mc1-1.sh            cscocmgf            shared              1                   2017-10-18T13:25:59 2017-10-18T13:26:27 RUNNING             
+92651               Mc2-c.sh            cscocmgf            shared              1                   2017-10-18T13:53:48 2017-10-18T13:54:39 RUNNING             
+80986               Mc1.sh              cscocmgf            shared              1                   2017-10-16T14:46:31 2017-10-16T14:46:41 RUNNING             
+80818               run02010            csfamorv            thinnodes           48                  2017-10-16T12:24:34 2017-10-16T15:18:22 RUNNING             
+43391               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-11T21:37:23 2017-10-15T17:05:17 RUNNING             
+92765               run02052            csfamorv            thinnodes           48                  2017-10-18T14:54:03 2017-10-18T19:36:38 RUNNING             
+92764               run02046            csfamorv            thinnodes           48                  2017-10-18T14:53:02 2017-10-18T19:16:10 RUNNING             
+92711               B3LYP_NORMAL        csfamdaa            thinnodes           24                  2017-10-18T14:16:29 2017-10-18T18:27:29 RUNNING             
+92676               a7.747              cseemmma            thinnodes           192                 2017-10-18T14:00:07 2017-10-18T18:27:29 RUNNING             
+63540               run02130            csfamorv            shared              16                  2017-10-14T13:21:26 2017-10-14T19:52:14 RUNNING             
+74265               14D-v1              csiftjmm            thinnodes           240                 2017-10-15T19:38:41 2017-10-16T03:42:42 RUNNING             
+41546               Globo00             uscfmvpm            thinnodes           24                  2017-10-11T12:45:00 2017-10-15T21:21:17 RUNNING             
+91583               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:53:54 RUNNING             
+91585               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:57:18 RUNNING             
+91584               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:57:18 RUNNING             
+91586               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T19:07:31 RUNNING             
+91587               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T19:09:24 RUNNING             
+61347               HemoI_m2_UB3LYP_6311ulcqimgd            thin-shared         8                   2017-10-14T02:58:09 2017-10-18T07:08:37 RUNNING             
+47502               production1.sh      uscqfmcs            gpu-shared          8                   2017-10-12T13:36:04 2017-10-16T17:58:01 RUNNING             
+69766               fost_d_H-O_scan_direcsimtgmd            thinnodes           48                  2017-10-15T09:40:15 2017-10-15T21:01:56 RUNNING             
+42019               ficherobucle.sh     uscfpyfb            thinnodes           24                  2017-10-11T15:42:09 2017-10-15T20:43:36 RUNNING             
+80820               run02022            csfamorv            thinnodes           48                  2017-10-16T12:25:06 2017-10-17T01:41:50 RUNNING             
+40640               c67.sh              ulcctaan            thinnodes           48                  2017-10-11T08:09:01 2017-10-15T20:43:36 RUNNING             
+80824               run02060            csfamorv            thinnodes           48                  2017-10-16T12:31:30 2017-10-17T05:20:44 RUNNING             
+59130               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-13T19:38:37 2017-10-18T06:12:54 RUNNING             
+80827               run02071            csfamorv            thinnodes           48                  2017-10-16T12:31:54 2017-10-17T07:50:41 RUNNING             
+39077               jobBimodalIIICV.sh  uvieipsn            thinnodes           24                  2017-10-10T22:14:56 2017-10-15T17:26:44 RUNNING             
+34384               cts_c3_ReRe1_SEG_Opiuviqopvc            shared              16                  2017-10-09T13:04:52 2017-10-14T16:58:30 RUNNING             
+48775               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-12T19:24:07 2017-10-18T00:44:55 RUNNING             
+48784               HemoIIH_m3_UB3LYP_cculcqimgd            thin-shared         8                   2017-10-12T19:27:43 2017-10-18T02:20:11 RUNNING             
+40932               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-16T23:48:18 RUNNING             
+40934               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T02:37:05 RUNNING             
+40936               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T05:55:26 RUNNING             
+40937               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T07:49:59 RUNNING             
+92948               OontopP_I_H2O_Paralludg20617            thinnodes           24                  2017-10-18T16:14:17 2017-10-18T16:14:39 RUNNING             
+93341               WRF1KM2017101812    saraiba             thinnodes           24                  2017-10-18T18:57:02 2017-10-18T18:58:49 RUNNING             
+27974               LutLpH              pr3e01ed            thinnodes           192                 2017-10-07T10:09:25 2017-10-07T11:31:58 RUNNING             
+27975               fLutLpH             pr3e01ed            thinnodes           192                 2017-10-07T10:09:33 2017-10-07T12:38:05 RUNNING             
+22311               fLutHpH             pr3e01ed            thinnodes           192                 2017-10-06T17:32:40 2017-10-06T20:26:27 RUNNING             
+22307               RLutLpH             pr3e01ed            thinnodes           192                 2017-10-06T17:32:30 2017-10-06T20:24:31 RUNNING             
+40946               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+40944               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+40943               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+40942               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+40941               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+40940               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+71896               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-15T14:28:00 RUNNING             
+27976               LutHpH              pr3e01ed            thinnodes           192                 2017-10-07T10:09:46 2017-10-07T14:43:14 RUNNING             
+47509               production1.sh      uscqfmcs            gpu-shared          8                   2017-10-12T13:36:34 2017-10-18T11:56:58 RUNNING             
+73577               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-15T18:23:26 RUNNING             
+47510               production1.sh      uscqfmcs            gpu-shared          8                   2017-10-12T13:37:00 2017-10-18T15:10:51 RUNNING             
+38307               ts1_R_ANT_P_SEG_c2.suviqoass            shared              16                  2017-10-10T16:25:03 2017-10-16T23:34:00 RUNNING             
+27978               RLutHpH             pr3e01ed            thinnodes           192                 2017-10-07T10:10:02 2017-10-07T19:13:33 RUNNING             
+40947               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T21:25:24 RUNNING             
+76255               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-15T23:38:53 RUNNING             
+40948               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T00:07:35 RUNNING             
+38308               ts1_S_ANT_M_SEG_c1.suviqoass            shared              16                  2017-10-10T16:25:03 2017-10-17T09:04:49 RUNNING             
+40950               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T03:22:06 RUNNING             
+40951               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T03:28:16 RUNNING             
+40952               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T03:29:17 RUNNING             
+40953               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T06:44:08 RUNNING             
+40956               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T06:44:09 RUNNING             
+40955               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T06:44:09 RUNNING             
+40954               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-18T06:44:09 RUNNING             
+38309               ts1_S_ANT_M_SEG_c3.suviqoass            shared              16                  2017-10-10T16:25:03 2017-10-17T12:51:51 RUNNING             
+80360               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-16T09:40:20 RUNNING             
+80407               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-16T10:18:18 RUNNING             
+80927               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-16T13:45:43 RUNNING             
+38310               ts1_S_ANT_M_SEG_c4.suviqoass            shared              16                  2017-10-10T16:25:03 2017-10-17T20:05:22 RUNNING             
+40957               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 2017-10-18T14:13:30 RUNNING             
+81185               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-16T17:21:37 RUNNING             
+38311               ts1_SEG_SIN_c1.sh   uviqoass            shared              16                  2017-10-10T16:25:03 2017-10-17T22:29:32 RUNNING             
+83344               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T01:41:48 RUNNING             
+83883               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T02:58:30 RUNNING             
+84201               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T03:40:49 RUNNING             
+84603               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T04:40:41 RUNNING             
+85005               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T05:33:35 RUNNING             
+85160               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T05:54:19 RUNNING             
+85344               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T06:18:36 RUNNING             
+86576               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T10:18:34 RUNNING             
+86602               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T10:47:13 RUNNING             
+86620               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T10:55:41 RUNNING             
+87114               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T12:31:51 RUNNING             
+87129               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T12:43:56 RUNNING             
+38312               ts1_S_SIN_M_SEG.sh  uviqoass            shared              16                  2017-10-10T16:25:03 2017-10-18T19:15:13 RUNNING             
+87754               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T18:22:20 RUNNING             
+87877               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T19:15:25 RUNNING             
+87884               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-17T19:24:31 RUNNING             
+56207               Modelo4_15          csbgyjam            thin-shared         1                   2017-10-13T09:50:30 2017-10-17T20:01:44 RUNNING             
+89426               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T00:49:41 RUNNING             
+91015               Modelo4_20          csbgyjam            thin-shared         1                   2017-10-13T09:50:53 2017-10-18T06:12:50 RUNNING             
+91109               Modelo4_20          csbgyjam            thin-shared         1                   2017-10-13T09:50:53 2017-10-18T06:37:26 RUNNING             
+91111               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T06:39:12 RUNNING             
+91502               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T08:05:04 RUNNING             
+91548               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T08:17:39 RUNNING             
+92755               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T14:45:19 RUNNING             
+92968               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T16:32:19 RUNNING             
+66330               Modelo4_10          csbgyjam            thin-shared         1                   2017-10-09T17:34:25 2017-10-15T00:11:45 RUNNING             
+93179               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 2017-10-18T18:02:31 RUNNING             
+41484               SNAPP_r5_resume     csebgjor            thin-shared         5                   2017-10-11T12:09:52 2017-10-16T21:06:39 RUNNING             
+93304               Modelo4_20          csbgyjam            thin-shared         1                   2017-10-13T09:50:53 2017-10-18T18:44:21 RUNNING             
+41487               SNAPP_r6_resume     csebgjor            thin-shared         5                   2017-10-11T12:10:33 2017-10-16T23:50:41 RUNNING             
+69820               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-15T09:57:48 RUNNING             
+70987               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-15T12:37:28 RUNNING             
+4993                svdq.050_concat_snpsuvibedpg            fatnode             64                  2017-10-04T10:23:07 2017-10-14T16:24:53 RUNNING             
+77999               Modelo4_5           csebgjor            thin-shared         1                   2017-10-09T17:02:41 2017-10-16T03:16:55 RUNNING             
+79569               Modelo4_5           csebgjor            thin-shared         1                   2017-10-09T17:02:41 2017-10-16T06:55:07 RUNNING             
+80071               Modelo4_5           csebgjor            thin-shared         1                   2017-10-09T17:02:41 2017-10-16T08:33:33 RUNNING             
+81095               Modelo4_5           csebgjor            thin-shared         1                   2017-10-09T17:02:41 2017-10-16T16:26:59 RUNNING             
+83302               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T01:35:14 RUNNING             
+83311               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T01:36:55 RUNNING             
+83408               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T01:51:09 RUNNING             
+84493               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T04:22:51 RUNNING             
+85697               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T07:06:14 RUNNING             
+86092               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T07:48:55 RUNNING             
+86560               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T10:06:38 RUNNING             
+1148                svdq.151_concat_ado_uvibesru            thin-shared         24                  2017-10-03T20:36:50 2017-10-15T16:46:24 RUNNING             
+88070               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-17T20:15:59 RUNNING             
+20068               svdq.164_concat_snpsuvibehde            shared              20                  2017-10-06T10:30:13 2017-10-18T16:19:49 RUNNING             
+89605               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-18T01:23:20 RUNNING             
+90482               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-18T04:21:57 RUNNING             
+91024               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-18T06:16:31 RUNNING             
+91271               Modelo5_20          csebgvto            thin-shared         1                   2017-10-09T16:23:12 2017-10-18T07:08:30 RUNNING             
+5426                svdq.167_concat_ado_uvibedpg            fatnode             64                  2017-10-04T11:18:35 2017-10-17T08:14:55 RUNNING             
+4429                0.17_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-18T16:12:06 RUNNING             
+4428                0.18_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-18T16:12:06 RUNNING             
+4431                0.15_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-18T16:12:45 RUNNING             
+1150                svdq.060_concat_snpsuvibesru            thin-shared         24                  2017-10-03T20:37:27 2017-10-18T15:47:36 RUNNING             
+1149                svdq.151_concat_snpsuvibesru            thin-shared         24                  2017-10-03T20:36:50 2017-10-18T15:43:57 RUNNING             
+1151                svdq.196_concat_snpsuvibesru            thin-shared         24                  2017-10-03T20:37:38 2017-10-18T16:12:06 RUNNING             
+86524               TK_Cu2.sh           ulcqfcpi            thinnodes           24                  2017-10-17T09:54:05 2017-10-17T10:25:17 RUNNING             
+92891               Rmelphalan_3622362upuscqorgf            thin-shared         8                   2017-10-18T15:51:25 2017-10-18T16:32:06 RUNNING             
+92893               Rmelphalan_3622362douscqorgf            thin-shared         8                   2017-10-18T15:51:38 2017-10-18T16:46:06 RUNNING             
+92895               Rmelphalan_2623263douscqorgf            thin-shared         8                   2017-10-18T15:51:59 2017-10-18T16:50:26 RUNNING             
+92897               Rmelphalan_2623263upuscqorgf            thin-shared         8                   2017-10-18T15:52:07 2017-10-18T18:34:33 RUNNING             
+92056               launcher_WAV-HC-FRE ibiae               puertos             24                  2017-10-18T11:05:02 2017-10-18T11:05:02 RUNNING             
+93516               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 2017-10-18T19:37:38 RUNNING             
+93487               WAM_WAV-HC-FRE      ibiae               puertos             144                 2017-10-18T19:28:04 2017-10-18T19:29:18 RUNNING             
+93423               srun                uscfpdic            thin-interactive    1                   2017-10-18T19:15:27 2017-10-18T19:15:35 RUNNING             
+93523               noac189             ub07143             thinnodes           72                  2017-10-18T19:37:46 N/A                 PENDING             
+93392               MEX14052013.sh      uscfmmpf            thinnodes           8                   2017-10-18T19:10:17 2017-10-19T08:26:27 PENDING             
+93400               MEX15052013.sh      uscfmmpf            thinnodes           8                   2017-10-18T19:11:02 2017-10-19T09:00:01 PENDING             
+93406               MEX16052013.sh      uscfmmpf            thinnodes           8                   2017-10-18T19:12:13 2017-10-19T21:26:44 PENDING             
+93386               MEX13052013.sh      uscfmmpf            thinnodes           8                   2017-10-18T19:08:23 2017-10-19T03:36:28 PENDING             
+3343                spleen3             ulcmmhcp            thinnodes           192                 2017-10-04T03:57:19 N/A                 PENDING             
+93355               MEX12052013.sh      uscfmmpf            thinnodes           8                   2017-10-18T19:02:04 2017-10-19T02:25:17 PENDING             
+93405               m1_S_ANT_SEG_c2_2.shuviqoass            shared              16                  2017-10-18T19:12:08 N/A                 PENDING             
+93404               m1_S_SEG_c1_2.sh    uviqoass            shared              16                  2017-10-18T19:12:08 N/A                 PENDING             
+93403               m1_S_SIN_SEG_c1_frequviqoass            shared              16                  2017-10-18T19:12:08 N/A                 PENDING             
+93402               m1_S_SIN_SEG_c2_frequviqoass            shared              16                  2017-10-18T19:12:08 N/A                 PENDING             
+93401               m1_S_SEG_c4_freq.sh uviqoass            shared              16                  2017-10-18T19:12:08 N/A                 PENDING             
+93148               MEX11052013.sh      uscfmmpf            thinnodes           8                   2017-10-18T17:57:13 2017-10-18T19:56:35 PENDING             
+93042               runWRF.sh           uscfmmpf            thinnodes           8                   2017-10-18T17:45:07 2017-10-19T19:30:01 PENDING             
+93231               ts1_R_ANT_M_PPH3_c1.uviqoass            shared              12                  2017-10-18T18:23:43 N/A                 PENDING             
+93230               ts1_R_ANT_P_PPH3_c1.uviqoass            shared              12                  2017-10-18T18:23:43 N/A                 PENDING             
+93007               GOLS08072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T17:03:12 2017-10-19T18:36:00 PENDING             
+93006               GOLS07072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T17:03:05 2017-10-19T18:36:00 PENDING             
+93005               GOLS06072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T17:03:03 2017-10-19T18:00:00 PENDING             
+93004               GOLS05072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T17:03:02 2017-10-19T14:00:00 PENDING             
+93000               c_react_SEG_Opiv_Au_uviqopvc            shared              16                  2017-10-18T16:56:25 N/A                 PENDING             
+92999               c_react_SEG_Opiv_Au_uviqopvc            shared              16                  2017-10-18T16:56:25 N/A                 PENDING             
+92998               cts_c3_ReRe1_SEG_Opiuviqopvc            shared              16                  2017-10-18T16:56:25 N/A                 PENDING             
+92997               cts_c3_ReRe1_SEG_Opiuviqopvc            shared              16                  2017-10-18T16:56:25 N/A                 PENDING             
+92994               ts3_dRR2_OPiv.sh    uviqopvc            shared              16                  2017-10-18T16:54:19 N/A                 PENDING             
+92953               GOLS04072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T16:18:33 2017-10-19T12:26:00 PENDING             
+92950               GOLS03072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T16:14:42 2017-10-19T12:26:00 PENDING             
+92949               GOLS02072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T16:14:24 2017-10-19T06:31:00 PENDING             
+92941               GOLS01072016.sh     uscfmmpf            thinnodes           8                   2017-10-18T16:08:22 2017-10-19T00:21:17 PENDING             
+92931               runWRF.sh           uscfmmpf            thinnodes           8                   2017-10-18T16:00:50 2017-10-19T23:03:54 PENDING             
+92913               GOLS29062016.sh     uscfmmpf            gpu-shared          8                   2017-10-18T15:54:44 2017-10-18T22:33:45 PENDING             
+92913               GOLS29062016.sh     uscfmmpf            thinnodes           8                   2017-10-18T15:54:44 2017-10-18T22:33:45 PENDING             
+92966               svdq.001_concat_snpsuvibehde            fatnode             128                 2017-10-18T16:31:36 2017-10-19T19:36:49 PENDING             
+92964               svdq.198_concat_snpsuvibehde            fatnode             48                  2017-10-18T16:30:58 2017-10-19T19:36:49 PENDING             
+92963               svdq.198_concat_ado_uvibehde            fatnode             48                  2017-10-18T16:30:58 2017-10-19T19:36:49 PENDING             
+92962               svdq.199_concat_snpsuvibehde            fatnode             48                  2017-10-18T16:30:10 2017-10-19T19:36:49 PENDING             
+92961               svdq.199_concat_ado_uvibehde            fatnode             48                  2017-10-18T16:30:10 2017-10-19T19:36:49 PENDING             
+92927               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:57:42 N/A                 PENDING             
+92926               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:57:11 N/A                 PENDING             
+92925               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:56:51 N/A                 PENDING             
+92924               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:56:41 N/A                 PENDING             
+92852               snap.006_concat_ado_uvibedpg            shared              20                  2017-10-18T15:42:08 N/A                 PENDING             
+92904               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:53:31 N/A                 PENDING             
+92902               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:52:51 N/A                 PENDING             
+92850               snap.005_concat_snpsuvibedpg            shared              20                  2017-10-18T15:39:59 N/A                 PENDING             
+92849               snap.005_concat_ado_uvibedpg            shared              20                  2017-10-18T15:39:59 N/A                 PENDING             
+92899               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:52:34 N/A                 PENDING             
+92848               snap.004_concat_snpsuvibedpg            shared              20                  2017-10-18T15:39:34 N/A                 PENDING             
+92847               snap.004_concat_ado_uvibedpg            shared              20                  2017-10-18T15:39:34 N/A                 PENDING             
+92888               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:51:06 N/A                 PENDING             
+92887               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:50:52 N/A                 PENDING             
+92885               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:50:41 N/A                 PENDING             
+92884               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:50:27 N/A                 PENDING             
+92883               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:50:20 N/A                 PENDING             
+92882               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:50:09 N/A                 PENDING             
+92881               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:48:46 N/A                 PENDING             
+92879               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:48:32 N/A                 PENDING             
+92878               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:48:17 N/A                 PENDING             
+92876               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:48:05 N/A                 PENDING             
+92875               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:47:55 N/A                 PENDING             
+92874               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:47:44 N/A                 PENDING             
+92873               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:47:35 N/A                 PENDING             
+92872               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:47:24 N/A                 PENDING             
+92871               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:47:14 N/A                 PENDING             
+92869               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:47:02 N/A                 PENDING             
+92868               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:46:54 N/A                 PENDING             
+92867               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:46:41 N/A                 PENDING             
+92866               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:46:34 N/A                 PENDING             
+92864               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:46:20 N/A                 PENDING             
+92863               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-18T15:45:04 N/A                 PENDING             
+92923               snap.005_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:51 N/A                 PENDING             
+92922               snap.005_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:51 N/A                 PENDING             
+92921               snap.004_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:45 N/A                 PENDING             
+92920               snap.004_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:45 N/A                 PENDING             
+92919               snap.003_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:40 N/A                 PENDING             
+92813               snap.005_concat_snpsuvibehde            shared              20                  2017-10-18T15:18:10 N/A                 PENDING             
+92812               snap.005_concat_ado_uvibehde            shared              20                  2017-10-18T15:18:10 N/A                 PENDING             
+92811               snap.004_concat_snpsuvibehde            shared              20                  2017-10-18T15:18:01 N/A                 PENDING             
+92810               snap.004_concat_ado_uvibehde            shared              20                  2017-10-18T15:18:01 N/A                 PENDING             
+92809               snap.003_concat_snpsuvibehde            shared              20                  2017-10-18T15:17:48 N/A                 PENDING             
+93313               Hemo_m6_UB3LYP_6311+ulcqimgd            thin-shared         8                   2017-10-18T18:47:46 N/A                 PENDING             
+93288               HemoII_m3_UB3LYP_631ulcqimgd            thin-shared         8                   2017-10-18T18:40:39 N/A                 PENDING             
+93269               HemoIIH_m3_UB3LYP_cculcqimgd            thin-shared         8                   2017-10-18T18:36:04 N/A                 PENDING             
+93239               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-18T18:26:11 N/A                 PENDING             
+93222               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-18T18:20:35 2017-10-20T16:50:26 PENDING             
+93197               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-18T18:07:55 2017-10-20T16:50:26 PENDING             
+93351               FGdpc2a1p_asym.sh   ulcqfmrf            thinnodes           6                   2017-10-18T18:59:19 2017-10-19T21:26:44 PENDING             
+93350               FGdpc2a1p_sym.sh    ulcqfmrf            thinnodes           6                   2017-10-18T18:59:14 2017-10-19T21:26:44 PENDING             
+92220               wrf_21_99.sh        uscfmsrs            thinnodes           300                 2017-10-18T11:48:10 2017-10-19T23:31:58 PENDING             
+92067               y4bl16.sh           ulcctfni            thinnodes           48                  2017-10-18T11:07:20 2017-10-19T23:03:54 PENDING             
+92055               y4bl6.sh            ulcctfni            thinnodes           48                  2017-10-18T11:04:44 2017-10-19T23:03:54 PENDING             
+93267               qa1.sh              uscqifrc            thinnodes           24                  2017-10-18T18:34:33 2017-10-19T21:26:44 PENDING             
+93030               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:23:49 2017-10-19T23:31:58 PENDING             
+93029               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:23:21 2017-10-19T23:31:58 PENDING             
+93028               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:22:21 2017-10-19T23:31:58 PENDING             
+93023               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:15:26 2017-10-19T23:31:58 PENDING             
+93022               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:14:56 2017-10-19T18:00:00 PENDING             
+93019               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:14:12 2017-10-19T14:00:01 PENDING             
+93015               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:08:42 2017-10-19T08:26:27 PENDING             
+93012               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:07:53 2017-10-19T08:01:00 PENDING             
+93011               job.sh              uscfambl            thinnodes           480                 2017-10-18T17:06:42 2017-10-19T04:01:00 PENDING             
+92542               MoCl2O2             uviqoldv            thin-shared         12                  2017-10-18T12:56:03 N/A                 PENDING             
+92541               ts1_NO2-t           uviqoldv            thin-shared         12                  2017-10-18T12:56:03 N/A                 PENDING             
+92540               ts1_NO2             uviqoldv            thin-shared         12                  2017-10-18T12:56:03 2017-10-21T04:12:06 PENDING             
+92539               ts1_POH3-t          uviqoldv            thin-shared         12                  2017-10-18T12:56:03 2017-10-21T04:12:06 PENDING             
+92538               ts1_POH3            uviqoldv            thin-shared         12                  2017-10-18T12:56:03 2017-10-21T04:12:06 PENDING             
+92537               ts1_SO3             uviqoldv            thin-shared         12                  2017-10-18T12:56:03 2017-10-21T04:12:06 PENDING             
+92536               ts1_SO3-t           uviqoldv            thin-shared         12                  2017-10-18T12:56:03 2017-10-21T04:12:06 PENDING             
+92535               ts1_SO3-t           uviqoldv            thin-shared         12                  2017-10-18T12:56:03 2017-10-21T04:12:06 PENDING             
+92484               ts1_alcohol         uviqoldv            thin-shared         12                  2017-10-18T12:39:38 2017-10-21T04:12:06 PENDING             
+92483               ts1_alcohol_s       uviqoldv            thin-shared         12                  2017-10-18T12:39:38 2017-10-21T04:12:06 PENDING             
+92452               scants_POCH3        uviqoldv            thin-shared         16                  2017-10-18T12:14:57 2017-10-21T04:12:06 PENDING             
+92451               ts_POCH3            uviqoldv            thin-shared         12                  2017-10-18T12:14:42 2017-10-21T04:12:06 PENDING             
+92450               ts_POCH3-t          uviqoldv            thin-shared         12                  2017-10-18T12:14:42 2017-10-21T04:12:06 PENDING             
+92424               min6.1              uviqoldv            thin-shared         12                  2017-10-18T12:00:18 2017-10-21T04:12:06 PENDING             
+92423               ts6-4.1             uviqoldv            thin-shared         12                  2017-10-18T12:00:18 2017-10-21T04:12:06 PENDING             
+92422               ts6-Z.E.1           uviqoldv            thin-shared         12                  2017-10-18T12:00:17 2017-10-21T04:12:06 PENDING             
+92421               ts2-6.1             uviqoldv            thin-shared         12                  2017-10-18T12:00:16 2017-10-21T04:12:06 PENDING             
+92217               min9.1              uviqoldv            thin-shared         12                  2017-10-18T11:47:03 2017-10-21T04:12:06 PENDING             
+92216               ts1_iso             uviqoldv            thin-shared         12                  2017-10-18T11:47:03 2017-10-21T04:12:06 PENDING             
+92209               ts8-10              uviqoldv            thin-shared         12                  2017-10-18T11:41:15 2017-10-21T04:12:06 PENDING             
+92208               ts8-9               uviqoldv            thin-shared         12                  2017-10-18T11:41:15 2017-10-21T04:12:06 PENDING             
+91809               andak               uscqfec2            thinnodes           10                  2017-10-18T09:17:09 2017-10-19T21:26:44 PENDING             
+87496               runOthers           ulcesnll            thinnodes           3                   2017-10-17T16:11:00 2017-10-19T17:49:59 PENDING             
+87497               runOthers           ulcesnll            thinnodes           5                   2017-10-17T16:11:10 2017-10-19T16:23:39 PENDING             
+86689               svdq.180_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:39 N/A                 PENDING             
+86688               svdq.180_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:39 N/A                 PENDING             
+86686               svdq.127_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:33 N/A                 PENDING             
+86685               svdq.127_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:33 N/A                 PENDING             
+86684               svdq.117_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:27 N/A                 PENDING             
+86683               svdq.117_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:27 N/A                 PENDING             
+86682               svdq.092_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:23 N/A                 PENDING             
+86681               svdq.092_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:23 N/A                 PENDING             
+86680               svdq.089_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:18 N/A                 PENDING             
+86679               svdq.089_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:18 N/A                 PENDING             
+86678               svdq.088_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:14 N/A                 PENDING             
+86677               svdq.088_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:14 N/A                 PENDING             
+86676               svdq.087_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:08 N/A                 PENDING             
+86675               svdq.087_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:08 N/A                 PENDING             
+86674               svdq.079_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:11:02 N/A                 PENDING             
+86673               svdq.079_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:11:02 N/A                 PENDING             
+86672               svdq.074_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:10:57 N/A                 PENDING             
+86671               svdq.074_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:10:57 N/A                 PENDING             
+86670               svdq.072_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:10:52 N/A                 PENDING             
+86669               svdq.072_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:10:52 N/A                 PENDING             
+86668               svdq.069_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:10:47 N/A                 PENDING             
+86667               svdq.069_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:10:47 N/A                 PENDING             
+86666               svdq.034_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:10:42 N/A                 PENDING             
+86665               svdq.034_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:10:42 N/A                 PENDING             
+86664               svdq.033_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:10:35 N/A                 PENDING             
+86663               svdq.033_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:10:35 N/A                 PENDING             
+86662               svdq.002_concat_snpsuvibedpg            thin-shared         20                  2017-10-17T11:10:28 2017-10-21T04:12:06 PENDING             
+86661               svdq.002_concat_ado_uvibedpg            thin-shared         20                  2017-10-17T11:10:28 2017-10-21T04:12:06 PENDING             
+86619               svdq.151_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:55:23 2017-10-19T19:36:43 PENDING             
+86618               svdq.151_concat_ado_uvibedpg            fatnode             64                  2017-10-17T10:55:23 2017-10-19T19:36:43 PENDING             
+86617               svdq.138_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:55:18 2017-10-19T19:36:43 PENDING             
+86616               svdq.138_concat_ado_uvibedpg            fatnode             64                  2017-10-17T10:55:18 2017-10-19T19:36:43 PENDING             
+86615               svdq.133_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:55:12 2017-10-19T19:36:43 PENDING             
+86614               svdq.133_concat_ado_uvibedpg            fatnode             64                  2017-10-17T10:55:12 2017-10-19T19:36:43 PENDING             
+86613               svdq.096_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:55:06 2017-10-19T19:36:43 PENDING             
+86612               svdq.096_concat_ado_uvibedpg            fatnode             64                  2017-10-17T10:55:06 2017-10-19T19:36:43 PENDING             
+86611               svdq.089_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:54:58 2017-10-19T19:36:43 PENDING             
+86610               svdq.089_concat_ado_uvibedpg            fatnode             64                  2017-10-17T10:54:58 2017-10-19T19:36:43 PENDING             
+86609               svdq.196_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:54:36 2017-10-19T19:36:43 PENDING             
+86608               svdq.060_concat_snpsuvibedpg            fatnode             64                  2017-10-17T10:54:13 2017-10-19T19:36:43 PENDING             
+86343               viv120.sh           ulcctaan            thinnodes           144                 2017-10-17T09:14:22 2017-10-19T16:23:39 PENDING             
+87177               runATM.sh           uscfpdic            fatnode             24                  2017-10-17T13:04:27 2017-10-19T19:36:43 PENDING             
+85595               PES_TPSSh_GdDOTP_20_ulcqfarr            thin-shared         8                   2017-10-17T06:52:36 2017-10-20T16:50:26 PENDING             
+84077               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-17T03:23:39 2017-10-20T16:50:26 PENDING             
+49544               launcher.sh         upc90886            thinnodes           1200                2017-10-12T22:00:41 2017-10-19T13:50:01 PENDING             
+81308               svdq.138_concat_snpsuvibesru            thin-shared         24                  2017-10-16T17:52:15 2017-10-21T04:12:06 PENDING             
+81307               svdq.138_concat_ado_uvibesru            thin-shared         24                  2017-10-16T17:52:15 2017-10-21T04:12:06 PENDING             
+81306               svdq.133_concat_snpsuvibesru            thin-shared         24                  2017-10-16T17:52:09 2017-10-21T04:12:06 PENDING             
+81305               svdq.133_concat_ado_uvibesru            thin-shared         24                  2017-10-16T17:52:09 2017-10-21T04:12:06 PENDING             
+81304               svdq.096_concat_snpsuvibesru            thin-shared         24                  2017-10-16T17:52:02 2017-10-21T04:12:06 PENDING             
+81303               svdq.096_concat_ado_uvibesru            thin-shared         24                  2017-10-16T17:52:02 2017-10-21T04:12:06 PENDING             
+81115               svdq.022_concat_snpsuvibedpg            thin-shared         20                  2017-10-16T16:36:28 2017-10-21T04:12:06 PENDING             
+81114               svdq.022_concat_ado_uvibedpg            thin-shared         20                  2017-10-16T16:36:28 2017-10-21T04:12:06 PENDING             
+81113               svdq.020_concat_snpsuvibedpg            thin-shared         20                  2017-10-16T16:36:09 2017-10-21T04:12:06 PENDING             
+81112               svdq.020_concat_ado_uvibedpg            thin-shared         20                  2017-10-16T16:36:09 2017-10-21T04:12:06 PENDING             
+81526               Hemo_m6_UB3LYP_631Gxulcqimgd            thin-shared         8                   2017-10-16T20:00:25 2017-10-20T16:50:26 PENDING             
+81517               Hemo_m6_UB3LYP_631++ulcqimgd            thin-shared         8                   2017-10-16T19:57:22 2017-10-20T16:50:26 PENDING             
+81514               HemoI_m2_UB3LYP_631Gulcqimgd            thin-shared         8                   2017-10-16T19:55:41 2017-10-20T16:50:26 PENDING             
+81507               HemoI_m2_UB3LYP_631+ulcqimgd            thin-shared         8                   2017-10-16T19:53:34 2017-10-20T16:50:26 PENDING             
+81505               HemoII_m3_UB3LYP_631ulcqimgd            thin-shared         8                   2017-10-16T19:51:45 2017-10-20T16:50:26 PENDING             
+81497               HemoII_m3_UB3LYP_631ulcqimgd            thin-shared         8                   2017-10-16T19:50:13 2017-10-20T16:50:26 PENDING             
+81496               job_script.sh       otcfdmmg            fatnode             1                   2017-10-16T19:48:43 2017-10-19T19:36:41 PENDING             
+80928               production1.sh      uscqojgg            gpu-shared          8                   2017-10-16T13:48:11 2017-10-21T11:56:58 PENDING             
+80918               HemoIIH_m3_UB3LYP_cculcqimgd            thin-shared         8                   2017-10-16T13:30:32 2017-10-20T16:50:26 PENDING             
+80469               test_slurm.sh       uvibeccs            thin-shared         4                   2017-10-16T10:54:53 2017-10-20T16:50:26 PENDING             
+80850               prueba_cesga.sh     ulcacpdi            thin-shared         1                   2017-10-16T12:44:07 2017-10-19T18:28:00 PENDING             
+80154               PopTPSSh_Bi_Cl.sh   ulcqfdeg            thin-shared         6                   2017-10-16T09:07:51 2017-10-19T22:23:26 PENDING             
+77941               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-16T03:09:34 2017-10-19T21:05:17 PENDING             
+77925               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-16T03:08:10 2017-10-19T21:05:17 PENDING             
+77923               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-16T03:07:14 2017-10-19T21:05:17 PENDING             
+72749               svdq.194_concat_snpsuvibehde            thin-shared         24                  2017-10-15T16:45:41 2017-10-21T04:12:06 PENDING             
+72748               svdq.194_concat_ado_uvibehde            thin-shared         24                  2017-10-15T16:45:37 2017-10-21T04:12:06 PENDING             
+72718               svdq.173_concat_snpsuvibehde            thin-shared         24                  2017-10-15T16:42:35 2017-10-21T04:12:06 PENDING             
+72713               svdq.173_concat_ado_uvibehde            thin-shared         24                  2017-10-15T16:41:02 2017-10-21T04:12:06 PENDING             
+70471               job_mod2_01_P10.sh  usceimca            thin-shared         1                   2017-10-15T11:41:26 2017-10-19T21:05:17 PENDING             
+70470               job_mod2_01_P9.sh   usceimca            thin-shared         1                   2017-10-15T11:41:23 2017-10-19T21:05:17 PENDING             
+70469               job_mod2_01_P8.sh   usceimca            thin-shared         1                   2017-10-15T11:41:21 2017-10-19T21:05:17 PENDING             
+70468               job_mod2_01_P7.sh   usceimca            thin-shared         1                   2017-10-15T11:41:18 2017-10-19T21:05:17 PENDING             
+70467               job_mod2_01_P6.sh   usceimca            thin-shared         1                   2017-10-15T11:41:16 2017-10-19T21:05:17 PENDING             
+70466               job_mod2_01_P5.sh   usceimca            thin-shared         1                   2017-10-15T11:41:13 2017-10-19T21:05:17 PENDING             
+70465               job_mod2_01_P4.sh   usceimca            thin-shared         1                   2017-10-15T11:41:10 2017-10-19T21:05:17 PENDING             
+70464               job_mod2_01_P3.sh   usceimca            thin-shared         1                   2017-10-15T11:41:08 2017-10-19T21:05:17 PENDING             
+70463               job_mod2_01_P2.sh   usceimca            thin-shared         1                   2017-10-15T11:41:05 2017-10-19T21:05:17 PENDING             
+70462               job_mod2_01_P1.sh   usceimca            thin-shared         1                   2017-10-15T11:41:02 2017-10-19T21:05:17 PENDING             
+70389               job_mod1_P10.sh     usceimca            thin-shared         1                   2017-10-15T11:30:12 2017-10-19T21:05:17 PENDING             
+70388               job_mod1_P9.sh      usceimca            thin-shared         1                   2017-10-15T11:30:09 2017-10-19T21:05:17 PENDING             
+70387               job_mod1_P8.sh      usceimca            thin-shared         1                   2017-10-15T11:30:06 2017-10-19T21:05:17 PENDING             
+70386               job_mod1_P7.sh      usceimca            thin-shared         1                   2017-10-15T11:30:04 2017-10-19T21:05:17 PENDING             
+70385               job_mod1_P6.sh      usceimca            thin-shared         1                   2017-10-15T11:30:00 2017-10-19T21:05:17 PENDING             
+70180               od01gsmc.txt        ulcqimcl            thin-shared         4                   2017-10-15T11:09:28 2017-10-19T21:05:17 PENDING             
+70172               oda02gsmc.txt       ulcqimcl            thin-shared         4                   2017-10-15T11:07:58 2017-10-19T21:05:17 PENDING             
+67888               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-15T04:15:59 2017-10-19T21:05:17 PENDING             
+87552               LamTt9D             csiftjmm            thinnodes           240                 2017-10-17T17:15:45 N/A                 PENDING             
+87551               LamTt9D             csiftjmm            thinnodes           240                 2017-10-17T17:15:45 N/A                 PENDING             
+74269               14D-v1              csiftjmm            thinnodes           240                 2017-10-15T19:38:41 N/A                 PENDING             
+74268               14D-v1              csiftjmm            thinnodes           240                 2017-10-15T19:38:41 N/A                 PENDING             
+74267               14D-v1              csiftjmm            thinnodes           240                 2017-10-15T19:38:41 N/A                 PENDING             
+74266               14D-v1              csiftjmm            thinnodes           240                 2017-10-15T19:38:41 N/A                 PENDING             
+64402               M2tanB              csiftjmm            thinnodes           240                 2017-10-14T17:44:18 N/A                 PENDING             
+92199               12DFin              csiftjmm            thinnodes           360                 2017-10-18T11:34:35 N/A                 PENDING             
+92198               12DFin              csiftjmm            thinnodes           360                 2017-10-18T11:34:35 N/A                 PENDING             
+93478               B3LYP_CD            csfamdaa            thinnodes           8                   2017-10-18T19:27:09 2017-10-18T23:12:19 PENDING             
+93390               B3LYP_DF            csfamdaa            thinnodes           8                   2017-10-18T19:09:35 2017-10-18T22:01:05 PENDING             
+93044               dftts2T.sh          cszidahl            thin-shared         8                   2017-10-18T17:46:40 2017-10-19T21:05:17 PENDING             
+93040               dmtir2Tea.sh        cszidahl            thin-shared         8                   2017-10-18T17:39:12 2017-10-19T21:05:17 PENDING             
+93340               test                csfamdaa            thin-shared         8                   2017-10-18T18:56:43 2017-10-21T04:12:06 PENDING             
+92894               36H2OUNCP_av5z      csfamdaa            fatnode             8                   2017-10-18T15:51:41 2017-10-19T19:36:37 PENDING             
+92682               dftir2S1.sh         cszidahl            thin-shared         8                   2017-10-18T14:06:15 2017-10-19T21:05:17 PENDING             
+92667               dftts3S1.sh         cszidahl            thin-shared         8                   2017-10-18T13:58:47 2017-10-19T21:05:17 PENDING             
+92640               dftp3tri.sh         cszidahl            thin-shared         8                   2017-10-18T13:52:25 2017-10-19T21:05:17 PENDING             
+92555               HemoI_m2_UB631Gx_Y0_ulcqidrr            thin-shared         4                   2017-10-18T13:01:21 2017-10-19T21:05:17 PENDING             
+92548               Hemo_FeII_vinyl_die2ulcqidrr            thin-shared         8                   2017-10-18T12:59:01 2017-10-19T21:05:17 PENDING             
+92563               W36DZ               csfamrpr            thin-shared         2                   2017-10-18T13:11:07 N/A                 PENDING             
+92610               dftts2sin.sh        cszidahl            thin-shared         8                   2017-10-18T13:46:43 2017-10-19T21:05:17 PENDING             
+92470               pvtzdodecwater27    csfamrpr            thin-shared         2                   2017-10-18T12:22:51 N/A                 PENDING             
+92454               W20sHdz             csfamrpr            thin-shared         2                   2017-10-18T12:20:37 N/A                 PENDING             
+64840               Hemo_m6_UB3LYP_6311Gulcqimgd            thin-shared         8                   2017-10-14T19:31:25 2017-10-19T21:05:17 PENDING             
+64833               HemoI_m2_UB3LYP_6311ulcqimgd            thin-shared         8                   2017-10-14T19:28:37 2017-10-19T21:05:17 PENDING             
+64815               HemoII_m3_UB3LYP_631ulcqimgd            thin-shared         8                   2017-10-14T19:24:34 2017-10-19T21:05:17 PENDING             
+64810               HemoIIH_m3_UB3LYP_cculcqimgd            thin-shared         8                   2017-10-14T19:21:49 2017-10-19T21:05:17 PENDING             
+64723               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-14T19:18:14 2017-10-19T21:05:17 PENDING             
+91635               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91634               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91633               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91632               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91631               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91630               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91629               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91628               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91627               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91626               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91625               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91624               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91623               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91622               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91621               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91620               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91619               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91618               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91617               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91616               W20alaPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:29:29 N/A                 PENDING             
+91611               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 N/A                 PENDING             
+91610               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 N/A                 PENDING             
+91609               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 N/A                 PENDING             
+91608               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 N/A                 PENDING             
+91592               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T09:07:00 PENDING             
+91593               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T09:09:00 PENDING             
+91594               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T16:07:00 PENDING             
+91595               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T16:09:00 PENDING             
+91596               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T18:25:00 PENDING             
+91607               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91606               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91605               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91604               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91603               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91602               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91601               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91600               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91599               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91598               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91597               fusedPVQZ           csfamrpr            thin-shared         2                   2017-10-18T08:26:40 2017-10-19T21:05:17 PENDING             
+91588               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-19T01:53:54 PENDING             
+91589               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-19T02:07:31 PENDING             
+91590               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-19T02:09:24 PENDING             
+57396               m1_S_SEG_c3_2.sh    uviqoass            shared              16                  2017-10-13T12:50:03 N/A                 PENDING             
+57395               m1_R_ANT_SEG_c1_frequviqoass            shared              16                  2017-10-13T12:50:03 N/A                 PENDING             
+56453               progdynstarterHP    uviqomcr            thin-shared         24                  2017-10-13T10:37:32 N/A                 PENDING             
+56557               0.23_MgDIP          uscfpvgg            thin-shared         24                  2017-10-13T10:40:08 2017-10-21T04:12:06 PENDING             
+56556               0.19_MgDIP          uscfpvgg            thin-shared         24                  2017-10-13T10:40:08 2017-10-21T04:12:06 PENDING             
+92752               020200WRF_ARW_DET_1Ksaraiba             cola-corta          984                 2017-10-18T14:40:19 2017-10-19T00:31:00 PENDING             
+92752               020200WRF_ARW_DET_1Ksaraiba             thinnodes           984                 2017-10-18T14:40:19 2017-10-19T00:31:00 PENDING             
+92751               020100WRF_ARW_DET_1Ksaraiba             cola-corta          984                 2017-10-18T14:40:04 2017-10-18T22:01:05 PENDING             
+92751               020100WRF_ARW_DET_1Ksaraiba             thinnodes           984                 2017-10-18T14:40:04 2017-10-18T22:01:05 PENDING             
+80481               submit-GPU.sh       cstsmdma            gpu-shared          24                  2017-10-16T11:08:23 2017-10-21T15:10:51 PENDING             
+80581               NPTs5_testGPU.sh    cstsmsit            gpu-shared          24                  2017-10-16T11:26:38 2017-10-21T15:10:51 PENDING             
+47518               production1.sh      uscqfmcs            gpu-shared          8                   2017-10-12T13:38:10 2017-10-19T17:58:01 PENDING             
+42430               ts3_ANT2_M_SEG_c1.shuviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42429               ts1_S_ANT_M_SEG_c6.suviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42428               ts1_S_ANT_M_SEG_c5.suviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42427               ts1_R_ANT_P_SEG_c3.suviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42426               ts1_R_ANT_P_PPH3_c2.uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42425               ts1_R_ANT_P_ind_SEG_uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42424               ts1_R_ANT_M_SEG_c1.suviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42423               m1_S_ANT_SEG_c4.sh  uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42422               m1_S_ANT_SEG_c3.sh  uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42421               m1_S_ANT_ind_SEG_c1.uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42420               m1_R_SIN_SEG_c1.sh  uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42419               m1_R_SIN_ind_SEG_c1.uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42418               m1_R_ANT_SEG_c2.sh  uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42417               m1_R_ANT_ind_SEG_c2.uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42416               m1_R_ANT_ind_SEG_c1.uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+42415               m1_R_ANT_ind2_SEG_c1uviqoass            shared              16                  2017-10-11T17:59:51 N/A                 PENDING             
+69623               fost_s_H-O_scan_desocsimtgmd            thin-shared         24                  2017-10-15T09:36:16 2017-10-21T04:12:06 PENDING             
+41008               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41007               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41006               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41005               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41004               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41003               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41002               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41001               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+41000               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40999               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40998               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40997               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40996               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40995               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40994               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40993               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40992               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40991               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40990               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40989               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40988               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40987               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40986               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40985               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40984               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40983               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40982               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40981               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40980               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40979               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40978               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40977               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40976               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40975               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40974               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40973               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40972               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40971               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40970               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40969               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40968               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40967               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40966               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40965               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40964               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40963               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40962               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40961               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40960               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40959               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+40958               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:42 N/A                 PENDING             
+38315               ts3_ANT_P_SEG_c1.sh uviqoass            shared              16                  2017-10-10T16:25:03 N/A                 PENDING             
+38314               ts3_ANT_M_SEG_c1.sh uviqoass            shared              16                  2017-10-10T16:25:03 N/A                 PENDING             
+38313               ts1_S_SIN_P_SEG.sh  uviqoass            shared              16                  2017-10-10T16:25:03 N/A                 PENDING             
+36959               svdq.151_concat_snpsuvibehde            shared              20                  2017-10-10T09:45:42 N/A                 PENDING             
+36956               svdq.172_concat_snpsuvibehde            thin-shared         24                  2017-10-10T09:43:40 2017-10-21T04:12:06 PENDING             
+37032               andak               uscqfecl            fatnode             8                   2017-10-10T10:46:23 2017-10-18T20:24:53 PENDING             
+36788               0.21_MgDIP          uscfpvgg            thin-shared         24                  2017-10-10T09:17:54 2017-10-21T04:12:06 PENDING             
+36787               0.22_MgDIP          uscfpvgg            thin-shared         24                  2017-10-10T09:17:54 2017-10-21T04:12:06 PENDING             
+35011               CASSCF_Yb3_IADOTA.shulcqfcpi            thin-shared         24                  2017-10-09T19:43:18 2017-10-21T04:12:06 PENDING             
+56312               Modelo5_20          csbgyjam            thin-shared         1                   2017-10-13T10:08:23 N/A                 PENDING             
+56311               Modelo5_5           csbgyjam            thin-shared         1                   2017-10-13T10:08:01 N/A                 PENDING             
+56234               Modelo4_10          csebgjor            thin-shared         1                   2017-10-13T09:56:11 N/A                 PENDING             
+56209               Modelo4_20          csbgyjam            thin-shared         1                   2017-10-13T09:50:53 N/A                 PENDING             
+34439               Hyp_TPSSh_GdDOTP20_Pulcqfarr            thin-shared         24                  2017-10-09T13:41:07 2017-10-21T04:12:06 PENDING             
+34424               CASSCF_Yb3_NP.sh    ulcqfdeg            thin-shared         24                  2017-10-09T13:23:06 2017-10-21T04:12:06 PENDING             
+33580               NEVPT2_PyEva.sh     ulcqfrpp            thin-shared         24                  2017-10-09T09:13:41 2017-10-21T04:12:06 PENDING             
+93280               STO                 cstsmasc            thin-shared         8                   2017-10-18T18:40:30 2017-10-19T16:25:00 PENDING             
+92778               STO_ph_3            cstsmasc            thin-shared         8                   2017-10-18T15:00:42 2017-10-19T14:25:00 PENDING             
+92777               STO_ph_2            cstsmasc            thin-shared         8                   2017-10-18T15:00:40 2017-10-19T12:25:23 PENDING             
+30440               gjob90.sh           uscqojsv            thin-shared         24                  2017-10-07T20:19:24 2017-10-21T04:12:06 PENDING             
+21400               svdq.172_concat_ado_uvibehde            thin-shared         24                  2017-10-06T14:34:24 2017-10-21T04:12:06 PENDING             
+20213               svdq.089_concat_snpsuvibesru            thin-shared         24                  2017-10-06T11:04:27 2017-10-21T04:12:06 PENDING             
+20135               svdq.168_concat_snpsuvibehde            thin-shared         24                  2017-10-06T10:33:00 2017-10-21T04:12:06 PENDING             
+5948                svdq.089_concat_ado_uvibesru            thin-shared         24                  2017-10-04T12:31:37 2017-10-21T04:12:06 PENDING             
+5879                svdq.168_concat_ado_uvibehde            thin-shared         24                  2017-10-04T12:22:56 2017-10-21T04:12:06 PENDING             
+4442                0.05_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4441                0.06_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4440                0.07_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4439                0.08_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4438                0.09_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4437                0.1_MgDIP           uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4435                0.11_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4434                0.12_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4433                0.13_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+4432                0.14_MgDIP          uscfpvgg            thin-shared         24                  2017-10-04T09:15:29 2017-10-21T04:12:06 PENDING             
+1202                svdq.167_concat_snpsuvibedpg            fatnode             128                 2017-10-03T20:42:52 2017-10-21T12:14:55 PENDING             
+93530               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93529               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93528               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93527               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93526               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93525               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93524               GENIBIPRODDM        ibide               thinnodes           24                  2017-10-18T19:38:08 N/A                 PENDING             
+93522               NCATTRDM            ibide               thinnodes           24                  2017-10-18T19:37:38 N/A                 PENDING             
+93521               NCATTRDM            ibide               thinnodes           24                  2017-10-18T19:37:38 N/A                 PENDING             
+93520               NCATTRDM            ibide               thinnodes           24                  2017-10-18T19:37:38 N/A                 PENDING             
+93519               NCATTRDM            ibide               thinnodes           24                  2017-10-18T19:37:38 N/A                 PENDING             
+93518               NCATTRDM            ibide               thinnodes           24                  2017-10-18T19:37:38 N/A                 PENDING             
+93517               NCATTRDM            ibide               thinnodes           24                  2017-10-18T19:37:38 N/A                 PENDING             
+93530               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93529               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93528               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93527               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93526               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93525               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93524               GENIBIPRODDM        ibide               puertos             24                  2017-10-18T19:38:08 N/A                 PENDING             
+93522               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 N/A                 PENDING             
+93521               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 N/A                 PENDING             
+93520               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 N/A                 PENDING             
+93519               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 N/A                 PENDING             
+93518               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 N/A                 PENDING             
+93517               NCATTRDM            ibide               puertos             24                  2017-10-18T19:37:38 N/A                 PENDING             
+time="2017-10-18T19:37:43+02:00" level=info msg="679 queued jobs collected" 
+Collecting Info metrics..." 
+sinfo -h -o "%20P %.5a %.15F"" 
+thin-interactive        up         1/1/0/2
+software                up         0/1/1/2
+thin-shared*            up       14/0/0/14
+thinnodes               up    213/21/2/236
+cola-corta              up       9/43/0/52
+gpu-interactive         up         0/1/0/1
+gpu-shared              up         3/0/0/3
+iphinodes               up         2/0/0/2
+iphi-interactive        up         1/0/0/1
+fatnode                 up         1/0/0/1
+shared                  up       53/2/0/55
+gpu-shared-k2           up         2/5/0/7
+time="2017-10-18T19:37:43+02:00" level=info msg="12 partition info collected" 
+
+An error has occurred during metrics gathering:
+
+13 error(s) occurred:
+* collected metric job_status label:<name:"jobid" value:"93530" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93529" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93528" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93527" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93526" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93525" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93524" > label:<name:"name" value:"GENIBIPRODDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93522" > label:<name:"name" value:"NCATTRDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93521" > label:<name:"name" value:"NCATTRDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93520" > label:<name:"name" value:"NCATTRDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93519" > label:<name:"name" value:"NCATTRDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93518" > label:<name:"name" value:"NCATTRDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
+* collected metric job_status label:<name:"jobid" value:"93517" > label:<name:"name" value:"NCATTRDM" > label:<name:"username" value:"ibide" > gauge:<value:7 >  was collected before with the same name and label values
