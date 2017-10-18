@@ -66,8 +66,8 @@ var StatusDict = map[string]int{
 	"TIMEOUT":      sTIMEOUT,
 }
 
-// QueueCollector collects metrics from the Slurm queues
-type QueueCollector struct {
+// SlurmCollector collects metrics from the Slurm queues
+type SlurmCollector struct {
 	waitTime          *prometheus.Desc
 	status            *prometheus.Desc
 	partitionNodes    *prometheus.Desc
@@ -78,9 +78,9 @@ type QueueCollector struct {
 	lasttime          time.Time
 }
 
-// NewQueueCollector creates a new Slurm Queue collector
-func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector {
-	newQueueCollector := &QueueCollector{
+// NewSlurmCollector creates a new Slurm Queue collector
+func NewSlurmCollector(host, sshUser, sshPass, timeZone string) *SlurmCollector {
+	newSlurmCollector := &SlurmCollector{
 		waitTime: prometheus.NewDesc(
 			"job_wait_time",
 			"Time that the job waited, or is estimated to wait",
@@ -109,52 +109,52 @@ func NewQueueCollector(host, sshUser, sshPass, timeZone string) *QueueCollector 
 		alreadyRegistered: make([]string, 0),
 	}
 	var err error
-	newQueueCollector.timeZone, err = time.LoadLocation(timeZone)
+	newSlurmCollector.timeZone, err = time.LoadLocation(timeZone)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	newQueueCollector.setLastTime()
-	return newQueueCollector
+	newSlurmCollector.setLastTime()
+	return newSlurmCollector
 }
 
 // Describe sends metrics descriptions of this collector
 // through the ch channel.
 // It implements collector interface
-func (qc *QueueCollector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- qc.waitTime
-	ch <- qc.status
-	ch <- qc.partitionNodes
+func (sc *SlurmCollector) Describe(ch chan<- *prometheus.Desc) {
+	ch <- sc.waitTime
+	ch <- sc.status
+	ch <- sc.partitionNodes
 }
 
 // Collect read the values of the metrics and
 // passes them to the ch channel.
 // It implements collector interface
-func (qc *QueueCollector) Collect(ch chan<- prometheus.Metric) {
+func (sc *SlurmCollector) Collect(ch chan<- prometheus.Metric) {
 	var err error
-	qc.sshClient, err = qc.sshConfig.NewClient()
+	sc.sshClient, err = sc.sshConfig.NewClient()
 	if err != nil {
 		log.Errorf("Creating SSH client: %s", err.Error())
 		return
 	}
 
-	qc.collectAcct(ch)
-	qc.collectQueue(ch)
-	qc.collectInfo(ch)
+	sc.collectAcct(ch)
+	sc.collectQueue(ch)
+	sc.collectInfo(ch)
 
-	err = qc.sshClient.Close()
+	err = sc.sshClient.Close()
 	if err != nil {
 		log.Errorf("Closing SSH client: %s", err.Error())
 	}
 }
 
-func (qc *QueueCollector) executeSSHCommand(cmd string) (*ssh.SSHSession, error) {
+func (sc *SlurmCollector) executeSSHCommand(cmd string) (*ssh.SSHSession, error) {
 	command := &ssh.SSHCommand{
 		Path: cmd,
 		// Env:    []string{"LC_DIR=/usr"},
 	}
 
 	var outb, errb bytes.Buffer
-	session, err := qc.sshClient.OpenSession(nil, &outb, &errb)
+	session, err := sc.sshClient.OpenSession(nil, &outb, &errb)
 	if err == nil {
 		err = session.RunCommand(command)
 		return session, err
@@ -162,8 +162,8 @@ func (qc *QueueCollector) executeSSHCommand(cmd string) (*ssh.SSHSession, error)
 	return nil, err
 }
 
-func (qc *QueueCollector) setLastTime() {
-	qc.lasttime = time.Now().In(qc.timeZone).Add(-1 * time.Minute)
+func (sc *SlurmCollector) setLastTime() {
+	sc.lasttime = time.Now().In(sc.timeZone).Add(-1 * time.Minute)
 }
 
 func parseSlurmTime(field string) (uint64, error) {

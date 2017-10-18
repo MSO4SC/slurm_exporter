@@ -42,21 +42,21 @@ const (
 	nullStartTime = "N/A"
 )
 
-func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
+func (sc *SlurmCollector) collectQueue(ch chan<- prometheus.Metric) {
 	log.Debugln("Collecting Queue metrics...")
 	var collected uint
 	var currentCommand string
 
-	if len(qc.alreadyRegistered) > 0 {
-		currentCommand = fmt.Sprintf(queueCommand+" | grep -v '%s'", strings.Join(qc.alreadyRegistered, "\\|"))
-		qc.alreadyRegistered = make([]string, 0) // free memory
+	if len(sc.alreadyRegistered) > 0 {
+		currentCommand = fmt.Sprintf(queueCommand+" | grep -v '%s'", strings.Join(sc.alreadyRegistered, "\\|"))
+		sc.alreadyRegistered = make([]string, 0) // free memory
 	} else {
 		currentCommand = queueCommand
 	}
 
 	// execute the command
 	log.Debugln(currentCommand)
-	sshSession, err := qc.executeSSHCommand(currentCommand)
+	sshSession, err := sc.executeSSHCommand(currentCommand)
 	if sshSession != nil {
 		defer sshSession.Close()
 	}
@@ -101,7 +101,7 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 		if statusOk {
 			if lastJob != fields[qJOBID] {
 				ch <- prometheus.MustNewConstMetric(
-					qc.status,
+					sc.status,
 					prometheus.GaugeValue,
 					float64(status),
 					fields[qJOBID], fields[qNAME], fields[qUSERNAME],
@@ -116,7 +116,7 @@ func (qc *QueueCollector) collectQueue(ch chan<- prometheus.Metric) {
 				if sstErr == nil {
 					waitTimestamp := starttime.Unix() - submittime.Unix()
 					ch <- prometheus.MustNewConstMetric(
-						qc.waitTime,
+						sc.waitTime,
 						prometheus.GaugeValue,
 						float64(waitTimestamp),
 						fields[qJOBID], fields[qNAME], fields[qUSERNAME],

@@ -38,13 +38,13 @@ const (
 
 var iSTATESNAMES = [3]string{"allocated", "idle", "other"}
 
-func (qc *QueueCollector) collectInfo(ch chan<- prometheus.Metric) {
+func (sc *SlurmCollector) collectInfo(ch chan<- prometheus.Metric) {
 	log.Debugln("Collecting Info metrics...")
 	var collected uint
 
 	// execute the command
 	log.Debugln(infoCommand)
-	sshSession, err := qc.executeSSHCommand(infoCommand)
+	sshSession, err := sc.executeSSHCommand(infoCommand)
 	if sshSession != nil {
 		defer sshSession.Close()
 	}
@@ -82,7 +82,7 @@ func (qc *QueueCollector) collectInfo(ch chan<- prometheus.Metric) {
 			if nodesOk == nil {
 				percentage = nodes / total * 100
 				ch <- prometheus.MustNewConstMetric(
-					qc.partitionNodes,
+					sc.partitionNodes,
 					prometheus.GaugeValue,
 					percentage,
 					fields[iPARTITION], fields[iAVAIL], iSTATESNAMES[i],

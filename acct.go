@@ -36,15 +36,15 @@ const (
 	acctCommand = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
 )
 
-func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
+func (sc *SlurmCollector) collectAcct(ch chan<- prometheus.Metric) {
 	log.Debugln("Collecting Acct metrics...")
 	var collected uint
 
-	hour := qc.lasttime.Hour()
-	minute := qc.lasttime.Minute()
-	second := qc.lasttime.Second()
+	hour := sc.lasttime.Hour()
+	minute := sc.lasttime.Minute()
+	second := sc.lasttime.Second()
 
-	now := time.Now().In(qc.timeZone)
+	now := time.Now().In(sc.timeZone)
 	if now.Hour() < hour {
 		hour = 0
 		minute = 0
@@ -54,7 +54,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 	currentCommand := fmt.Sprintf(acctCommand, hour, minute, second)
 	log.Debugln(currentCommand)
 
-	sshSession, err := qc.executeSSHCommand(currentCommand)
+	sshSession, err := sc.executeSSHCommand(currentCommand)
 	if sshSession != nil {
 		defer sshSession.Close()
 	}
@@ -65,7 +65,7 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 
 	// wait for stdout to fill (it is being filled async by ssh)
 	time.Sleep(100 * time.Millisecond)
-	qc.setLastTime()
+	sc.setLastTime()
 
 	nextLine := nextLineIterator(sshSession.OutBuffer, sacctLineParser)
 	for fields, err := nextLine(); err == nil; fields, err = nextLine() {
@@ -80,12 +80,12 @@ func (qc *QueueCollector) collectAcct(ch chan<- prometheus.Metric) {
 		if statusOk {
 			if jobIsNotInQueue(status) {
 				ch <- prometheus.MustNewConstMetric(
-					qc.status,
+					sc.status,
 					prometheus.GaugeValue,
 					float64(status),
 					fields[aJOBID], fields[aNAME], fields[aUSERNAME],
 				)
-				qc.alreadyRegistered = append(qc.alreadyRegistered, fields[aJOBID])
+				sc.alreadyRegistered = append(sc.alreadyRegistered, fields[aJOBID])
 				//log.Debugln("Job " + fields[aJOBID] + " finished with state " + fields[aSTATE])
 				collected++
 			}
