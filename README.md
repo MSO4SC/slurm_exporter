@@ -1,8 +1,8 @@
 # Slurm Prometheus Exporter
 
-Server that collects metrics from Slurm and exposes them in the Prometheus format. The exporter access SLURM by ssh, tipically running in a outside machine that can reach the HPC.  
+Allow a server to collect metrics from SLURM and expose them in Prometheus format. The exporter accesses SLURM by ssh to a remote machine that can perform `sacct`, `squeue`, and `sinfo` commands.
 
-Run it in the same machine as slurm is not supported right now.  
+Running it on the same machine as SLURM is not currently supported.
 
 ## Install
 
