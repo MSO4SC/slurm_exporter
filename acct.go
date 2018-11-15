@@ -34,7 +34,7 @@ const (
 )
 
 const (
-	acctCommand = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING'"
+	acctCommand = "sacct -n -a -X -o \"JobIDRaw,JobName%%20,User%%20,Partition%%20,State%%20\" -S%02d:%02d:%02d -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\\|COMPLETING\\|RUNNING' | uniq"
 )
 
 func (sc *SlurmCollector) collectAcct(ch chan<- prometheus.Metric) {

@@ -32,7 +32,7 @@ const (
 )
 
 const (
-	infoCommand   = "sinfo -h -o \"%20R %.5a %.15F\""
+	infoCommand   = "sinfo -h -o \"%20R %.5a %.15F\" | uniq"
 	iSTATESNUMBER = 3
 )
 

@@ -48,7 +48,7 @@ func (sc *SlurmCollector) collectQueue(ch chan<- prometheus.Metric) {
 	var currentCommand string
 
 	if len(sc.alreadyRegistered) > 0 {
-		currentCommand = fmt.Sprintf(queueCommand+" | grep -v '%s'", strings.Join(sc.alreadyRegistered, "\\|"))
+		currentCommand = fmt.Sprintf(queueCommand+" | grep -v '%s' | uniq", strings.Join(sc.alreadyRegistered, "\\|"))
 		sc.alreadyRegistered = make([]string, 0) // free memory
 	} else {
 		currentCommand = queueCommand
