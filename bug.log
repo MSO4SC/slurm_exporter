@@ -1,166 +1,166 @@
 Collecting Acct metrics..." 
 sacct -n -a -X -o "JobIDRaw,JobName%20,User%20,State%20" -S19:36:30 -sBF,CA,CD,CF,F,NF,PR,RS,S,TO | grep -v 'PENDING\|COMPLETING\|RUNNING'" 
-93512                GENIBIPRODDM                ibide            COMPLETED 
-93513                GENIBIPRODDM                ibide            COMPLETED 
-93514                  MERGEREADM                ibide            COMPLETED 
-93515                     noac188              ub07143            COMPLETED 
+93512                GENIBIPRODDM                xxxxx            COMPLETED 
+93513                GENIBIPRODDM                xxxxx            COMPLETED 
+93514                  MERGEREADM                xxxxx            COMPLETED 
+93515                     noac188              xxxxxxx            COMPLETED 
 time="2017-10-18T19:37:43+02:00" level=info msg="4 finished jobs collected" 
 Collecting Queue metrics..." 
 squeue -h -Ojobid,name,username,partition,numcpus,submittime,starttime,state -P | grep -v '93512\|93513\|93514\|93515'" 
-92841               ion66               ub07143             thinnodes           72                  2017-10-18T15:34:31 2017-10-18T17:43:20 RUNNING             
-92815               snap.001_concat_ado_uvibedpg            shared              20                  2017-10-18T15:22:37 2017-10-18T15:22:55 RUNNING             
-92843               snap.002_concat_snpsuvibedpg            shared              20                  2017-10-18T15:38:45 2017-10-18T15:38:55 RUNNING             
-92842               snap.002_concat_ado_uvibedpg            shared              20                  2017-10-18T15:38:45 2017-10-18T15:38:55 RUNNING             
-92845               snap.003_concat_snpsuvibedpg            shared              20                  2017-10-18T15:39:17 2017-10-18T15:39:55 RUNNING             
-92844               snap.003_concat_ado_uvibedpg            shared              20                  2017-10-18T15:39:17 2017-10-18T15:39:55 RUNNING             
-92981               cts_c3_ReSi2_SEG_Opiuviqopvc            shared              16                  2017-10-18T16:43:07 2017-10-18T16:44:06 RUNNING             
-92993               ts3_dRR2_OAc.sh     uviqopvc            shared              16                  2017-10-18T16:54:19 2017-10-18T16:55:07 RUNNING             
-92808               snap.003_concat_ado_uvibehde            shared              20                  2017-10-18T15:17:48 2017-10-18T15:17:55 RUNNING             
-92807               snap.002_concat_snpsuvibehde            shared              20                  2017-10-18T15:17:35 2017-10-18T15:17:55 RUNNING             
-92806               snap.002_concat_ado_uvibehde            shared              20                  2017-10-18T15:17:35 2017-10-18T15:17:55 RUNNING             
-92805               snap.001_concat_snpsuvibehde            shared              20                  2017-10-18T15:16:55 2017-10-18T15:17:55 RUNNING             
-92836               GOLS23062016.sh     uscfmmpf            thinnodes           24                  2017-10-18T15:30:47 2017-10-18T16:23:45 RUNNING             
-92918               snap.003_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:40 2017-10-18T15:55:59 RUNNING             
-92917               snap.002_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:36 2017-10-18T15:55:59 RUNNING             
-92916               snap.002_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:36 2017-10-18T15:55:59 RUNNING             
-92915               snap.001_concat_snpsuvibesru            shared              20                  2017-10-18T15:55:32 2017-10-18T15:55:59 RUNNING             
-92914               snap.001_concat_ado_uvibesru            shared              20                  2017-10-18T15:55:32 2017-10-18T15:55:59 RUNNING             
-92861               GOLS24062016.sh     uscfmmpf            thinnodes           24                  2017-10-18T15:44:22 2017-10-18T17:02:19 RUNNING             
-81419               snap.001_concat_ado_uvibehde            shared              20                  2017-10-16T19:20:47 2017-10-16T19:21:09 RUNNING             
-93198               runWRF.sh           uscfmmpf            thinnodes           48                  2017-10-18T18:08:42 2017-10-18T19:14:32 RUNNING             
-3342                spleen3             ulcmmhcp            thinnodes           192                 2017-10-04T03:57:10 2017-10-16T10:05:22 RUNNING             
-92929               GOLS30062016.sh     uscfmmpf            iphinodes           24                  2017-10-18T15:59:43 2017-10-18T17:58:10 RUNNING             
-93033               ts3g_07_11_fine.pbs uviqomml            shared              20                  2017-10-18T17:28:11 2017-10-18T17:28:59 RUNNING             
-92080               counter_antiparalelouscqojgg            shared              8                   2017-10-18T11:12:13 2017-10-18T11:12:31 RUNNING             
-92079               counter_paralelo.sh uscqojgg            shared              8                   2017-10-18T11:11:58 2017-10-18T11:12:31 RUNNING             
-92078               counter_antiparalelouscqojgg            shared              8                   2017-10-18T11:11:47 2017-10-18T11:12:31 RUNNING             
-92077               counter_paralelo.sh uscqojgg            shared              8                   2017-10-18T11:11:37 2017-10-18T11:12:31 RUNNING             
-92167               sp_anti.sh          uscqojgg            shared              8                   2017-10-18T11:17:39 2017-10-18T11:18:33 RUNNING             
-92166               sp_paralelo.sh      uscqojgg            shared              8                   2017-10-18T11:17:32 2017-10-18T11:18:33 RUNNING             
-92169               sp_anti.sh          uscqojgg            shared              8                   2017-10-18T11:19:16 2017-10-18T11:19:33 RUNNING             
-92168               sp_paralelo.sh      uscqojgg            shared              8                   2017-10-18T11:19:09 2017-10-18T11:19:33 RUNNING             
-80909               ts3g_07_11.pbs      uviqomml            shared              20                  2017-10-16T13:21:19 2017-10-16T13:21:40 RUNNING             
-80910               ts3g_07_12.pbs      uviqomml            shared              20                  2017-10-16T13:22:50 2017-10-16T13:23:38 RUNNING             
-80911               ts3g_07_13.pbs      uviqomml            shared              20                  2017-10-16T13:27:28 2017-10-16T13:27:40 RUNNING             
-93018               TSIVb-As_PdAu_conf1_uviqoaag            shared              16                  2017-10-18T17:13:47 2017-10-18T17:14:06 RUNNING             
-93017               TSIVb-As_PdAu_conf1_uviqoaag            shared              16                  2017-10-18T17:13:47 2017-10-18T17:14:06 RUNNING             
-92880               scanprTSprueba_enantuviqorar            shared              6                   2017-10-18T15:48:44 2017-10-18T15:48:59 RUNNING             
-92889               scanpr_1.sh         uviqorar            shared              6                   2017-10-18T15:51:13 2017-10-18T15:51:59 RUNNING             
-92846               PPh3.sh             uviqorar            shared              4                   2017-10-18T15:39:23 2017-10-18T15:39:55 RUNNING             
-91973               TS_pruebaPPh3_CF3.shuviqorar            shared              5                   2017-10-18T09:40:48 2017-10-18T09:41:23 RUNNING             
-76030               samtools            uscmejbl            gpu-shared-k2       1                   2017-10-15T23:15:35 2017-10-15T23:16:01 RUNNING             
-76031               samtools            uscmejbl            gpu-shared-k2       1                   2017-10-15T23:16:04 2017-10-15T23:17:01 RUNNING             
-92026               run.sh              uscfpirs            thinnodes           24                  2017-10-18T10:34:43 2017-10-18T10:36:28 RUNNING             
-92028               run2.sh             uscfpirs            thinnodes           24                  2017-10-18T10:34:51 2017-10-18T10:36:28 RUNNING             
-73477               samtools            uscmejbl            iphinodes           24                  2017-10-15T18:10:56 2017-10-15T18:12:46 RUNNING             
-93385               sinF.sh             uscqojmc            shared              8                   2017-10-18T19:08:06 2017-10-18T19:08:18 RUNNING             
-93009               sinF.sh             uscqojmc            shared              8                   2017-10-18T17:05:27 2017-10-18T17:05:52 RUNNING             
-93010               sinF.sh             uscqojmc            shared              8                   2017-10-18T17:06:17 2017-10-18T17:07:06 RUNNING             
-93014               sinF.sh             uscqojmc            shared              8                   2017-10-18T17:08:12 2017-10-18T17:09:06 RUNNING             
-93389               sinF.sh             uscqojmc            shared              8                   2017-10-18T19:09:19 2017-10-18T19:11:18 RUNNING             
-93003               lanza1.sh           uscqfigv            shared              6                   2017-10-18T16:59:34 2017-10-18T17:00:06 RUNNING             
-93008               lanza1.sh           uscqfigv            shared              6                   2017-10-18T17:03:57 2017-10-18T17:04:06 RUNNING             
-86578               lanza4.sh           uscqfigv            shared              6                   2017-10-17T10:18:49 2017-10-17T10:19:39 RUNNING             
-86572               lanza1.sh           uscqfigv            shared              6                   2017-10-17T10:15:34 2017-10-17T10:15:40 RUNNING             
-86575               lanza3.sh           uscqfigv            shared              6                   2017-10-17T10:16:56 2017-10-17T10:17:39 RUNNING             
-86579               lanza5.sh           uscqfigv            shared              6                   2017-10-17T10:19:26 2017-10-17T10:19:39 RUNNING             
-86573               lanza2.sh           uscqfigv            shared              6                   2017-10-17T10:16:19 2017-10-17T10:16:39 RUNNING             
-80387               yaa2Alt9SinInd_3_3_5ulctidrc            shared              1                   2017-10-16T09:52:50 2017-10-16T09:53:22 RUNNING             
-80388               yaa2Alt9SinInd_3_3_5ulctidrc            shared              1                   2017-10-16T09:52:50 2017-10-16T09:53:22 RUNNING             
-92515               NewMesh.sh          ulcendrc            thinnodes           24                  2017-10-18T12:46:52 2017-10-18T12:48:48 RUNNING             
-91811               TSCH_seg_exo.sh     uviqoarl            shared              5                   2017-10-18T09:18:38 2017-10-18T09:19:08 RUNNING             
-91810               TSCH_seg_exo_1.sh   uviqoarl            shared              5                   2017-10-18T09:18:38 2017-10-18T09:19:08 RUNNING             
-92992               K_8_dynM.sh         ulcenlff            thinnodes           24                  2017-10-18T16:54:05 2017-10-18T17:02:19 RUNNING             
-92990               K_7_Int.sh          ulcenlff            thinnodes           24                  2017-10-18T16:52:06 2017-10-18T17:02:19 RUNNING             
-92933               K_6B_Int.sh         ulcenlff            thinnodes           24                  2017-10-18T16:03:35 2017-10-18T16:23:45 RUNNING             
-92932               K_6A_Int.sh         ulcenlff            thinnodes           24                  2017-10-18T16:02:21 2017-10-18T16:23:45 RUNNING             
-92564               run.sh              ulcmmrta            shared              1                   2017-10-18T13:11:33 2017-10-18T13:11:38 RUNNING             
-92753               run2.sh             ulcmmrta            shared              1                   2017-10-18T14:41:37 2017-10-18T14:41:51 RUNNING             
-92010               run2.sh             ulcmmrta            shared              1                   2017-10-18T10:17:18 2017-10-18T10:17:24 RUNNING             
-92008               a.sh                uvibeccs            thinnodes           24                  2017-10-18T10:14:47 2017-10-18T14:13:44 RUNNING             
-93495               andak               uscqfec2            thinnodes           24                  2017-10-18T09:17:09 2017-10-18T19:29:40 RUNNING             
-80153               y4bl11.sh           ulcctfni            thinnodes           48                  2017-10-16T09:07:25 2017-10-17T04:26:11 RUNNING             
-87873               nogpujob.sh         ulccoaal            thinnodes           24                  2017-10-17T19:10:39 2017-10-18T10:45:04 RUNNING             
-82833               HSeq2500            uvibgmsm            thinnodes           24                  2017-10-17T00:21:14 2017-10-17T15:54:32 RUNNING             
-80470               viv48.sh            ulcctaan            thinnodes           48                  2017-10-16T10:56:47 2017-10-17T14:59:59 RUNNING             
-80453               stc848.sh           ulcctaan            thinnodes           48                  2017-10-16T10:43:50 2017-10-17T14:59:59 RUNNING             
-80452               stc448.sh           ulcctaan            thinnodes           48                  2017-10-16T10:43:38 2017-10-17T14:59:59 RUNNING             
-80451               stc424.sh           ulcctaan            thinnodes           48                  2017-10-16T10:43:19 2017-10-17T14:59:59 RUNNING             
-80467               jobBimodalIICV.sh   uvieipsn            thinnodes           24                  2017-10-16T10:50:31 2017-10-17T14:59:59 RUNNING             
-80174               vr90.sh             ulcctfni            thinnodes           48                  2017-10-16T09:16:50 2017-10-17T14:58:48 RUNNING             
-80163               vr95.sh             ulcctfni            thinnodes           48                  2017-10-16T09:16:02 2017-10-17T14:58:48 RUNNING             
-80162               vr88.sh             ulcctfni            thinnodes           48                  2017-10-16T09:15:50 2017-10-17T14:58:48 RUNNING             
-80158               y4bl30.sh           ulcctfni            thinnodes           48                  2017-10-16T09:09:13 2017-10-17T14:58:48 RUNNING             
-87555               job_script.sh       otcfdmmg            thinnodes           24                  2017-10-17T17:19:20 2017-10-18T16:23:39 RUNNING             
-87487               forwardJOB2         uscgeacc            thinnodes           24                  2017-10-17T15:55:55 2017-10-18T16:23:39 RUNNING             
-49562               launcher.sh         upc90886            thinnodes           240                 2017-10-12T22:03:25 2017-10-18T16:23:39 RUNNING             
-69838               mda01gsm.txt        ulcqisrg            thin-shared         2                   2017-10-15T10:04:08 2017-10-17T01:07:22 RUNNING             
-70070               oda01ggs.txt        ulcqias             thin-shared         2                   2017-10-15T10:47:55 2017-10-17T07:50:43 RUNNING             
-69842               pdaa01gsm.txt       ulcqisrg            thin-shared         2                   2017-10-15T10:07:36 2017-10-17T07:48:59 RUNNING             
-80483               T4.sh               usceiafh            thin-shared         1                   2017-10-16T11:13:41 2017-10-18T16:25:23 RUNNING             
-80482               T2.sh               usceiafh            thin-shared         1                   2017-10-16T11:13:37 2017-10-18T16:25:23 RUNNING             
-70380               job_mod1_P1.sh      usceimca            thin-shared         1                   2017-10-15T11:29:44 2017-10-18T07:31:24 RUNNING             
-70381               job_mod1_P2.sh      usceimca            thin-shared         1                   2017-10-15T11:29:48 2017-10-18T09:28:39 RUNNING             
-70306               pd01gs.txt          ulcqisrg            thin-shared         2                   2017-10-15T11:16:54 2017-10-18T06:54:41 RUNNING             
-70170               odaa01gsmc.txt      ulcqimcl            thin-shared         4                   2017-10-15T11:06:12 2017-10-18T06:28:50 RUNNING             
-70160               pda01gsmc.txt       ulcqimcl            thin-shared         4                   2017-10-15T11:04:21 2017-10-18T06:27:04 RUNNING             
-70382               job_mod1_P3.sh      usceimca            thin-shared         1                   2017-10-15T11:29:51 2017-10-18T11:38:46 RUNNING             
-70383               job_mod1_P4.sh      usceimca            thin-shared         1                   2017-10-15T11:29:54 2017-10-18T17:44:57 RUNNING             
-70384               job_mod1_P5.sh      usceimca            thin-shared         1                   2017-10-15T11:29:57 2017-10-18T18:35:02 RUNNING             
-56819               cts_c3_SiSi2_SEG_Opiuviqopvc            shared              16                  2017-10-13T11:16:59 2017-10-16T22:20:16 RUNNING             
-56820               cts_c3_SiRe2_SEG_Opiuviqopvc            shared              16                  2017-10-13T11:16:59 2017-10-17T06:15:26 RUNNING             
-56821               cts_c3_SiSi2_SEG_Opiuviqopvc            shared              16                  2017-10-13T11:16:59 2017-10-17T08:51:34 RUNNING             
-87470               run02134            csfamorv            shared              16                  2017-10-17T15:52:08 2017-10-17T15:52:41 RUNNING             
-87550               LamTt9D             csiftjmm            thinnodes           240                 2017-10-17T17:15:45 2017-10-17T20:20:22 RUNNING             
-92197               12DFin              csiftjmm            thinnodes           360                 2017-10-18T11:34:35 2017-10-18T11:58:36 RUNNING             
-92528               NPT0s8.sh           cstsmsit            thinnodes           48                  2017-10-18T12:50:03 2017-10-18T12:50:30 RUNNING             
-92529               NPTs8.sh            cstsmsit            thinnodes           48                  2017-10-18T12:51:19 2017-10-18T12:51:37 RUNNING             
-64401               M2tanB              csiftjmm            thinnodes           240                 2017-10-14T17:44:18 2017-10-14T18:01:05 RUNNING             
-91641               run02110            csfamorv            thinnodes           48                  2017-10-18T08:47:14 2017-10-18T09:38:13 RUNNING             
-91640               run02106            csfamorv            thinnodes           48                  2017-10-18T08:46:39 2017-10-18T09:38:13 RUNNING             
-92546               CASTEP-test         csmccrfe            thinnodes           96                  2017-10-18T12:57:30 2017-10-18T12:57:37 RUNNING             
-92597               Mc1-1.sh            cscocmgf            shared              1                   2017-10-18T13:25:59 2017-10-18T13:26:27 RUNNING             
-92651               Mc2-c.sh            cscocmgf            shared              1                   2017-10-18T13:53:48 2017-10-18T13:54:39 RUNNING             
-80986               Mc1.sh              cscocmgf            shared              1                   2017-10-16T14:46:31 2017-10-16T14:46:41 RUNNING             
-80818               run02010            csfamorv            thinnodes           48                  2017-10-16T12:24:34 2017-10-16T15:18:22 RUNNING             
-43391               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-11T21:37:23 2017-10-15T17:05:17 RUNNING             
-92765               run02052            csfamorv            thinnodes           48                  2017-10-18T14:54:03 2017-10-18T19:36:38 RUNNING             
-92764               run02046            csfamorv            thinnodes           48                  2017-10-18T14:53:02 2017-10-18T19:16:10 RUNNING             
-92711               B3LYP_NORMAL        csfamdaa            thinnodes           24                  2017-10-18T14:16:29 2017-10-18T18:27:29 RUNNING             
-92676               a7.747              cseemmma            thinnodes           192                 2017-10-18T14:00:07 2017-10-18T18:27:29 RUNNING             
-63540               run02130            csfamorv            shared              16                  2017-10-14T13:21:26 2017-10-14T19:52:14 RUNNING             
-74265               14D-v1              csiftjmm            thinnodes           240                 2017-10-15T19:38:41 2017-10-16T03:42:42 RUNNING             
-41546               Globo00             uscfmvpm            thinnodes           24                  2017-10-11T12:45:00 2017-10-15T21:21:17 RUNNING             
-91583               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:53:54 RUNNING             
-91585               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:57:18 RUNNING             
-91584               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:57:18 RUNNING             
-91586               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T19:07:31 RUNNING             
-91587               faceshPVQZ          csfamrpr            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T19:09:24 RUNNING             
-61347               HemoI_m2_UB3LYP_6311ulcqimgd            thin-shared         8                   2017-10-14T02:58:09 2017-10-18T07:08:37 RUNNING             
-47502               production1.sh      uscqfmcs            gpu-shared          8                   2017-10-12T13:36:04 2017-10-16T17:58:01 RUNNING             
-69766               fost_d_H-O_scan_direcsimtgmd            thinnodes           48                  2017-10-15T09:40:15 2017-10-15T21:01:56 RUNNING             
-42019               ficherobucle.sh     uscfpyfb            thinnodes           24                  2017-10-11T15:42:09 2017-10-15T20:43:36 RUNNING             
-80820               run02022            csfamorv            thinnodes           48                  2017-10-16T12:25:06 2017-10-17T01:41:50 RUNNING             
-40640               c67.sh              ulcctaan            thinnodes           48                  2017-10-11T08:09:01 2017-10-15T20:43:36 RUNNING             
-80824               run02060            csfamorv            thinnodes           48                  2017-10-16T12:31:30 2017-10-17T05:20:44 RUNNING             
-59130               HemoIIH_m3_UB3LYP_63ulcqimgd            thin-shared         8                   2017-10-13T19:38:37 2017-10-18T06:12:54 RUNNING             
-80827               run02071            csfamorv            thinnodes           48                  2017-10-16T12:31:54 2017-10-17T07:50:41 RUNNING             
-39077               jobBimodalIIICV.sh  uvieipsn            thinnodes           24                  2017-10-10T22:14:56 2017-10-15T17:26:44 RUNNING             
-34384               cts_c3_ReRe1_SEG_Opiuviqopvc            shared              16                  2017-10-09T13:04:52 2017-10-14T16:58:30 RUNNING             
-48775               HemoIIH_m3_UB3LYP_auulcqimgd            thin-shared         8                   2017-10-12T19:24:07 2017-10-18T00:44:55 RUNNING             
-48784               HemoIIH_m3_UB3LYP_cculcqimgd            thin-shared         8                   2017-10-12T19:27:43 2017-10-18T02:20:11 RUNNING             
-40932               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-16T23:48:18 RUNNING             
-40934               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T02:37:05 RUNNING             
-40936               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T05:55:26 RUNNING             
-40937               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T07:49:59 RUNNING             
-92948               OontopP_I_H2O_Paralludg20617            thinnodes           24                  2017-10-18T16:14:17 2017-10-18T16:14:39 RUNNING             
-93341               WRF1KM2017101812    saraiba             thinnodes           24                  2017-10-18T18:57:02 2017-10-18T18:58:49 RUNNING             
-27974               LutLpH              pr3e01ed            thinnodes           192                 2017-10-07T10:09:25 2017-10-07T11:31:58 RUNNING             
-27975               fLutLpH             pr3e01ed            thinnodes           192                 2017-10-07T10:09:33 2017-10-07T12:38:05 RUNNING             
-22311               fLutHpH             pr3e01ed            thinnodes           192                 2017-10-06T17:32:40 2017-10-06T20:26:27 RUNNING             
-22307               RLutLpH             pr3e01ed            thinnodes           192                 2017-10-06T17:32:30 2017-10-06T20:24:31 RUNNING             
-40946               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
-40944               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+92841               ion66               xxxxxxx             thinnodes           72                  2017-10-18T15:34:31 2017-10-18T17:43:20 RUNNING             
+92815               snap.001_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:22:37 2017-10-18T15:22:55 RUNNING             
+92843               snap.002_concat_snpsxxxxxxxx            shared              20                  2017-10-18T15:38:45 2017-10-18T15:38:55 RUNNING             
+92842               snap.002_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:38:45 2017-10-18T15:38:55 RUNNING             
+92845               snap.003_concat_snpsxxxxxxxx            shared              20                  2017-10-18T15:39:17 2017-10-18T15:39:55 RUNNING             
+92844               snap.003_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:39:17 2017-10-18T15:39:55 RUNNING             
+92981               cts_c3_ReSi2_SEG_Opixxxxxxxx            shared              16                  2017-10-18T16:43:07 2017-10-18T16:44:06 RUNNING             
+92993               ts3_dRR2_OAc.sh     xxxxxxxx            shared              16                  2017-10-18T16:54:19 2017-10-18T16:55:07 RUNNING             
+92808               snap.003_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:17:48 2017-10-18T15:17:55 RUNNING             
+92807               snap.002_concat_snpsxxxxxxxx            shared              20                  2017-10-18T15:17:35 2017-10-18T15:17:55 RUNNING             
+92806               snap.002_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:17:35 2017-10-18T15:17:55 RUNNING             
+92805               snap.001_concat_snpsxxxxxxxx            shared              20                  2017-10-18T15:16:55 2017-10-18T15:17:55 RUNNING             
+92836               GOLS23062016.sh     xxxxxxxx            thinnodes           24                  2017-10-18T15:30:47 2017-10-18T16:23:45 RUNNING             
+92918               snap.003_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:55:40 2017-10-18T15:55:59 RUNNING             
+92917               snap.002_concat_snpsxxxxxxxx            shared              20                  2017-10-18T15:55:36 2017-10-18T15:55:59 RUNNING             
+92916               snap.002_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:55:36 2017-10-18T15:55:59 RUNNING             
+92915               snap.001_concat_snpsxxxxxxxx            shared              20                  2017-10-18T15:55:32 2017-10-18T15:55:59 RUNNING             
+92914               snap.001_concat_ado_xxxxxxxx            shared              20                  2017-10-18T15:55:32 2017-10-18T15:55:59 RUNNING             
+92861               GOLS24062016.sh     xxxxxxxx            thinnodes           24                  2017-10-18T15:44:22 2017-10-18T17:02:19 RUNNING             
+81419               snap.001_concat_ado_xxxxxxxx            shared              20                  2017-10-16T19:20:47 2017-10-16T19:21:09 RUNNING             
+93198               runWRF.sh           xxxxxxxx            thinnodes           48                  2017-10-18T18:08:42 2017-10-18T19:14:32 RUNNING             
+3342                spleen3             xxxxxxxx            thinnodes           192                 2017-10-04T03:57:10 2017-10-16T10:05:22 RUNNING             
+92929               GOLS30062016.sh     xxxxxxxx            iphinodes           24                  2017-10-18T15:59:43 2017-10-18T17:58:10 RUNNING             
+93033               ts3g_07_11_fine.pbs xxxxxxxx            shared              20                  2017-10-18T17:28:11 2017-10-18T17:28:59 RUNNING             
+92080               counter_antiparaleloxxxxxxxx            shared              8                   2017-10-18T11:12:13 2017-10-18T11:12:31 RUNNING             
+92079               counter_paralelo.sh xxxxxxxx            shared              8                   2017-10-18T11:11:58 2017-10-18T11:12:31 RUNNING             
+92078               counter_antiparaleloxxxxxxxx            shared              8                   2017-10-18T11:11:47 2017-10-18T11:12:31 RUNNING             
+92077               counter_paralelo.sh xxxxxxxx            shared              8                   2017-10-18T11:11:37 2017-10-18T11:12:31 RUNNING             
+92167               sp_anti.sh          xxxxxxxx            shared              8                   2017-10-18T11:17:39 2017-10-18T11:18:33 RUNNING             
+92166               sp_paralelo.sh      xxxxxxxx            shared              8                   2017-10-18T11:17:32 2017-10-18T11:18:33 RUNNING             
+92169               sp_anti.sh          xxxxxxxx            shared              8                   2017-10-18T11:19:16 2017-10-18T11:19:33 RUNNING             
+92168               sp_paralelo.sh      xxxxxxxx            shared              8                   2017-10-18T11:19:09 2017-10-18T11:19:33 RUNNING             
+80909               ts3g_07_11.pbs      xxxxxxxx            shared              20                  2017-10-16T13:21:19 2017-10-16T13:21:40 RUNNING             
+80910               ts3g_07_12.pbs      xxxxxxxx            shared              20                  2017-10-16T13:22:50 2017-10-16T13:23:38 RUNNING             
+80911               ts3g_07_13.pbs      xxxxxxxx            shared              20                  2017-10-16T13:27:28 2017-10-16T13:27:40 RUNNING             
+93018               TSIVb-As_PdAu_conf1_xxxxxxxx            shared              16                  2017-10-18T17:13:47 2017-10-18T17:14:06 RUNNING             
+93017               TSIVb-As_PdAu_conf1_xxxxxxxx            shared              16                  2017-10-18T17:13:47 2017-10-18T17:14:06 RUNNING             
+92880               scanprTSprueba_enantxxxxxxxx            shared              6                   2017-10-18T15:48:44 2017-10-18T15:48:59 RUNNING             
+92889               scanpr_1.sh         xxxxxxxx            shared              6                   2017-10-18T15:51:13 2017-10-18T15:51:59 RUNNING             
+92846               PPh3.sh             xxxxxxxx            shared              4                   2017-10-18T15:39:23 2017-10-18T15:39:55 RUNNING             
+91973               TS_pruebaPPh3_CF3.shxxxxxxxx            shared              5                   2017-10-18T09:40:48 2017-10-18T09:41:23 RUNNING             
+76030               samtools            xxxxxxxx            gpu-shared-k2       1                   2017-10-15T23:15:35 2017-10-15T23:16:01 RUNNING             
+76031               samtools            xxxxxxxx            gpu-shared-k2       1                   2017-10-15T23:16:04 2017-10-15T23:17:01 RUNNING             
+92026               run.sh              xxxxxxxx            thinnodes           24                  2017-10-18T10:34:43 2017-10-18T10:36:28 RUNNING             
+92028               run2.sh             xxxxxxxx            thinnodes           24                  2017-10-18T10:34:51 2017-10-18T10:36:28 RUNNING             
+73477               samtools            xxxxxxxx            iphinodes           24                  2017-10-15T18:10:56 2017-10-15T18:12:46 RUNNING             
+93385               sinF.sh             xxxxxxxx            shared              8                   2017-10-18T19:08:06 2017-10-18T19:08:18 RUNNING             
+93009               sinF.sh             xxxxxxxx            shared              8                   2017-10-18T17:05:27 2017-10-18T17:05:52 RUNNING             
+93010               sinF.sh             xxxxxxxx            shared              8                   2017-10-18T17:06:17 2017-10-18T17:07:06 RUNNING             
+93014               sinF.sh             xxxxxxxx            shared              8                   2017-10-18T17:08:12 2017-10-18T17:09:06 RUNNING             
+93389               sinF.sh             xxxxxxxx            shared              8                   2017-10-18T19:09:19 2017-10-18T19:11:18 RUNNING             
+93003               lanza1.sh           xxxxxxxx            shared              6                   2017-10-18T16:59:34 2017-10-18T17:00:06 RUNNING             
+93008               lanza1.sh           xxxxxxxx            shared              6                   2017-10-18T17:03:57 2017-10-18T17:04:06 RUNNING             
+86578               lanza4.sh           xxxxxxxx            shared              6                   2017-10-17T10:18:49 2017-10-17T10:19:39 RUNNING             
+86572               lanza1.sh           xxxxxxxx            shared              6                   2017-10-17T10:15:34 2017-10-17T10:15:40 RUNNING             
+86575               lanza3.sh           xxxxxxxx            shared              6                   2017-10-17T10:16:56 2017-10-17T10:17:39 RUNNING             
+86579               lanza5.sh           xxxxxxxx            shared              6                   2017-10-17T10:19:26 2017-10-17T10:19:39 RUNNING             
+86573               lanza2.sh           xxxxxxxx            shared              6                   2017-10-17T10:16:19 2017-10-17T10:16:39 RUNNING             
+80387               yaa2Alt9SinInd_3_3_5xxxxxxxx            shared              1                   2017-10-16T09:52:50 2017-10-16T09:53:22 RUNNING             
+80388               yaa2Alt9SinInd_3_3_5xxxxxxxx            shared              1                   2017-10-16T09:52:50 2017-10-16T09:53:22 RUNNING             
+92515               NewMesh.sh          xxxxxxxx            thinnodes           24                  2017-10-18T12:46:52 2017-10-18T12:48:48 RUNNING             
+91811               TSCH_seg_exo.sh     xxxxxxxx            shared              5                   2017-10-18T09:18:38 2017-10-18T09:19:08 RUNNING             
+91810               TSCH_seg_exo_1.sh   xxxxxxxx            shared              5                   2017-10-18T09:18:38 2017-10-18T09:19:08 RUNNING             
+92992               K_8_dynM.sh         xxxxxxxx            thinnodes           24                  2017-10-18T16:54:05 2017-10-18T17:02:19 RUNNING             
+92990               K_7_Int.sh          xxxxxxxx            thinnodes           24                  2017-10-18T16:52:06 2017-10-18T17:02:19 RUNNING             
+92933               K_6B_Int.sh         xxxxxxxx            thinnodes           24                  2017-10-18T16:03:35 2017-10-18T16:23:45 RUNNING             
+92932               K_6A_Int.sh         xxxxxxxx            thinnodes           24                  2017-10-18T16:02:21 2017-10-18T16:23:45 RUNNING             
+92564               run.sh              xxxxxxxx            shared              1                   2017-10-18T13:11:33 2017-10-18T13:11:38 RUNNING             
+92753               run2.sh             xxxxxxxx            shared              1                   2017-10-18T14:41:37 2017-10-18T14:41:51 RUNNING             
+92010               run2.sh             xxxxxxxx            shared              1                   2017-10-18T10:17:18 2017-10-18T10:17:24 RUNNING             
+92008               a.sh                xxxxxxxx            thinnodes           24                  2017-10-18T10:14:47 2017-10-18T14:13:44 RUNNING             
+93495               andak               xxxxxxxx            thinnodes           24                  2017-10-18T09:17:09 2017-10-18T19:29:40 RUNNING             
+80153               y4bl11.sh           xxxxxxxx            thinnodes           48                  2017-10-16T09:07:25 2017-10-17T04:26:11 RUNNING             
+87873               nogpujob.sh         xxxxxxxx            thinnodes           24                  2017-10-17T19:10:39 2017-10-18T10:45:04 RUNNING             
+82833               HSeq2500            xxxxxxxx            thinnodes           24                  2017-10-17T00:21:14 2017-10-17T15:54:32 RUNNING             
+80470               viv48.sh            xxxxxxxx            thinnodes           48                  2017-10-16T10:56:47 2017-10-17T14:59:59 RUNNING             
+80453               stc848.sh           xxxxxxxx            thinnodes           48                  2017-10-16T10:43:50 2017-10-17T14:59:59 RUNNING             
+80452               stc448.sh           xxxxxxxx            thinnodes           48                  2017-10-16T10:43:38 2017-10-17T14:59:59 RUNNING             
+80451               stc424.sh           xxxxxxxx            thinnodes           48                  2017-10-16T10:43:19 2017-10-17T14:59:59 RUNNING             
+80467               jobBimodalIICV.sh   xxxxxxxx            thinnodes           24                  2017-10-16T10:50:31 2017-10-17T14:59:59 RUNNING             
+80174               vr90.sh             xxxxxxxx            thinnodes           48                  2017-10-16T09:16:50 2017-10-17T14:58:48 RUNNING             
+80163               vr95.sh             xxxxxxxx            thinnodes           48                  2017-10-16T09:16:02 2017-10-17T14:58:48 RUNNING             
+80162               vr88.sh             xxxxxxxx            thinnodes           48                  2017-10-16T09:15:50 2017-10-17T14:58:48 RUNNING             
+80158               y4bl30.sh           xxxxxxxx            thinnodes           48                  2017-10-16T09:09:13 2017-10-17T14:58:48 RUNNING             
+87555               job_script.sh       xxxxxxxx            thinnodes           24                  2017-10-17T17:19:20 2017-10-18T16:23:39 RUNNING             
+87487               forwardJOB2         xxxxxxxx            thinnodes           24                  2017-10-17T15:55:55 2017-10-18T16:23:39 RUNNING             
+49562               launcher.sh         xxxxxxxx            thinnodes           240                 2017-10-12T22:03:25 2017-10-18T16:23:39 RUNNING             
+69838               mda01gsm.txt        xxxxxxxx            thin-shared         2                   2017-10-15T10:04:08 2017-10-17T01:07:22 RUNNING             
+70070               oda01ggs.txt        xxxxxxxx             thin-shared         2                   2017-10-15T10:47:55 2017-10-17T07:50:43 RUNNING             
+69842               pdaa01gsm.txt       xxxxxxxx            thin-shared         2                   2017-10-15T10:07:36 2017-10-17T07:48:59 RUNNING             
+80483               T4.sh               xxxxxxxx            thin-shared         1                   2017-10-16T11:13:41 2017-10-18T16:25:23 RUNNING             
+80482               T2.sh               xxxxxxxx            thin-shared         1                   2017-10-16T11:13:37 2017-10-18T16:25:23 RUNNING             
+70380               job_mod1_P1.sh      xxxxxxxx            thin-shared         1                   2017-10-15T11:29:44 2017-10-18T07:31:24 RUNNING             
+70381               job_mod1_P2.sh      xxxxxxxx            thin-shared         1                   2017-10-15T11:29:48 2017-10-18T09:28:39 RUNNING             
+70306               pd01gs.txt          xxxxxxxx            thin-shared         2                   2017-10-15T11:16:54 2017-10-18T06:54:41 RUNNING             
+70170               odaa01gsmc.txt      xxxxxxxx            thin-shared         4                   2017-10-15T11:06:12 2017-10-18T06:28:50 RUNNING             
+70160               pda01gsmc.txt       xxxxxxxx            thin-shared         4                   2017-10-15T11:04:21 2017-10-18T06:27:04 RUNNING             
+70382               job_mod1_P3.sh      xxxxxxxx            thin-shared         1                   2017-10-15T11:29:51 2017-10-18T11:38:46 RUNNING             
+70383               job_mod1_P4.sh      xxxxxxxx            thin-shared         1                   2017-10-15T11:29:54 2017-10-18T17:44:57 RUNNING             
+70384               job_mod1_P5.sh      xxxxxxxx            thin-shared         1                   2017-10-15T11:29:57 2017-10-18T18:35:02 RUNNING             
+56819               cts_c3_SiSi2_SEG_Opixxxxxxxx            shared              16                  2017-10-13T11:16:59 2017-10-16T22:20:16 RUNNING             
+56820               cts_c3_SiRe2_SEG_Opixxxxxxxx            shared              16                  2017-10-13T11:16:59 2017-10-17T06:15:26 RUNNING             
+56821               cts_c3_SiSi2_SEG_Opixxxxxxxx            shared              16                  2017-10-13T11:16:59 2017-10-17T08:51:34 RUNNING             
+87470               run02134            xxxxxxxx            shared              16                  2017-10-17T15:52:08 2017-10-17T15:52:41 RUNNING             
+87550               LamTt9D             xxxxxxxx            thinnodes           240                 2017-10-17T17:15:45 2017-10-17T20:20:22 RUNNING             
+92197               12DFin              xxxxxxxx            thinnodes           360                 2017-10-18T11:34:35 2017-10-18T11:58:36 RUNNING             
+92528               NPT0s8.sh           xxxxxxxx            thinnodes           48                  2017-10-18T12:50:03 2017-10-18T12:50:30 RUNNING             
+92529               NPTs8.sh            xxxxxxxx            thinnodes           48                  2017-10-18T12:51:19 2017-10-18T12:51:37 RUNNING             
+64401               M2tanB              xxxxxxxx            thinnodes           240                 2017-10-14T17:44:18 2017-10-14T18:01:05 RUNNING             
+91641               run02110            xxxxxxxx            thinnodes           48                  2017-10-18T08:47:14 2017-10-18T09:38:13 RUNNING             
+91640               run02106            xxxxxxxx            thinnodes           48                  2017-10-18T08:46:39 2017-10-18T09:38:13 RUNNING             
+92546               CASTEP-test         xxxxxxxx            thinnodes           96                  2017-10-18T12:57:30 2017-10-18T12:57:37 RUNNING             
+92597               Mc1-1.sh            xxxxxxxx            shared              1                   2017-10-18T13:25:59 2017-10-18T13:26:27 RUNNING             
+92651               Mc2-c.sh            xxxxxxxx            shared              1                   2017-10-18T13:53:48 2017-10-18T13:54:39 RUNNING             
+80986               Mc1.sh              xxxxxxxx            shared              1                   2017-10-16T14:46:31 2017-10-16T14:46:41 RUNNING             
+80818               run02010            xxxxxxxx            thinnodes           48                  2017-10-16T12:24:34 2017-10-16T15:18:22 RUNNING             
+43391               HemoIIH_m3_UB3LYP_auxxxxxxxx            thin-shared         8                   2017-10-11T21:37:23 2017-10-15T17:05:17 RUNNING             
+92765               run02052            xxxxxxxx            thinnodes           48                  2017-10-18T14:54:03 2017-10-18T19:36:38 RUNNING             
+92764               run02046            xxxxxxxx            thinnodes           48                  2017-10-18T14:53:02 2017-10-18T19:16:10 RUNNING             
+92711               B3LYP_NORMAL        xxxxxxxx            thinnodes           24                  2017-10-18T14:16:29 2017-10-18T18:27:29 RUNNING             
+92676               a7.747              xxxxxxxx            thinnodes           192                 2017-10-18T14:00:07 2017-10-18T18:27:29 RUNNING             
+63540               run02130            xxxxxxxx            shared              16                  2017-10-14T13:21:26 2017-10-14T19:52:14 RUNNING             
+74265               14D-v1              xxxxxxxx            thinnodes           240                 2017-10-15T19:38:41 2017-10-16T03:42:42 RUNNING             
+41546               Globo00             xxxxxxxx            thinnodes           24                  2017-10-11T12:45:00 2017-10-15T21:21:17 RUNNING             
+91583               faceshPVQZ          xxxxxxxx            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:53:54 RUNNING             
+91585               faceshPVQZ          xxxxxxxx            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:57:18 RUNNING             
+91584               faceshPVQZ          xxxxxxxx            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T18:57:18 RUNNING             
+91586               faceshPVQZ          xxxxxxxx            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T19:07:31 RUNNING             
+91587               faceshPVQZ          xxxxxxxx            thin-shared         2                   2017-10-18T08:23:27 2017-10-18T19:09:24 RUNNING             
+61347               HemoI_m2_UB3LYP_6311xxxxxxxx            thin-shared         8                   2017-10-14T02:58:09 2017-10-18T07:08:37 RUNNING             
+47502               production1.sh      xxxxxxxx            gpu-shared          8                   2017-10-12T13:36:04 2017-10-16T17:58:01 RUNNING             
+69766               fost_d_H-O_scan_direxxxxxxxx            thinnodes           48                  2017-10-15T09:40:15 2017-10-15T21:01:56 RUNNING             
+42019               ficherobucle.sh     xxxxxxxx            thinnodes           24                  2017-10-11T15:42:09 2017-10-15T20:43:36 RUNNING             
+80820               run02022            xxxxxxxx            thinnodes           48                  2017-10-16T12:25:06 2017-10-17T01:41:50 RUNNING             
+40640               c67.sh              xxxxxxxx            thinnodes           48                  2017-10-11T08:09:01 2017-10-15T20:43:36 RUNNING             
+80824               run02060            xxxxxxxx            thinnodes           48                  2017-10-16T12:31:30 2017-10-17T05:20:44 RUNNING             
+59130               HemoIIH_m3_UB3LYP_63xxxxxxxx            thin-shared         8                   2017-10-13T19:38:37 2017-10-18T06:12:54 RUNNING             
+80827               run02071            xxxxxxxx            thinnodes           48                  2017-10-16T12:31:54 2017-10-17T07:50:41 RUNNING             
+39077               jobBimodalIIICV.sh  xxxxxxxx            thinnodes           24                  2017-10-10T22:14:56 2017-10-15T17:26:44 RUNNING             
+34384               cts_c3_ReRe1_SEG_Opixxxxxxxx            shared              16                  2017-10-09T13:04:52 2017-10-14T16:58:30 RUNNING             
+48775               HemoIIH_m3_UB3LYP_auxxxxxxxx            thin-shared         8                   2017-10-12T19:24:07 2017-10-18T00:44:55 RUNNING             
+48784               HemoIIH_m3_UB3LYP_ccxxxxxxxx            thin-shared         8                   2017-10-12T19:27:43 2017-10-18T02:20:11 RUNNING             
+40932               progdynstarterHP    xxxxxxxx            thinnodes           24                  2017-10-11T09:52:41 2017-10-16T23:48:18 RUNNING             
+40934               progdynstarterHP    xxxxxxxx            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T02:37:05 RUNNING             
+40936               progdynstarterHP    xxxxxxxx            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T05:55:26 RUNNING             
+40937               progdynstarterHP    xxxxxxxx            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T07:49:59 RUNNING             
+92948               OontopP_I_H2O_Parallxxxxxxxx            thinnodes           24                  2017-10-18T16:14:17 2017-10-18T16:14:39 RUNNING             
+93341               WRF1KM2017101812    xxxxxxxx             thinnodes           24                  2017-10-18T18:57:02 2017-10-18T18:58:49 RUNNING             
+27974               LutLpH              xxxxxxxx            thinnodes           192                 2017-10-07T10:09:25 2017-10-07T11:31:58 RUNNING             
+27975               fLutLpH             xxxxxxxx            thinnodes           192                 2017-10-07T10:09:33 2017-10-07T12:38:05 RUNNING             
+22311               fLutHpH             xxxxxxxx            thinnodes           192                 2017-10-06T17:32:40 2017-10-06T20:26:27 RUNNING             
+22307               RLutLpH             xxxxxxxx            thinnodes           192                 2017-10-06T17:32:30 2017-10-06T20:24:31 RUNNING             
+40946               progdynstarterHP    xxxxxxxx            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
+40944               progdynstarterHP    xxxxxxxx            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
 40943               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
 40942               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
 40941               progdynstarterHP    uviqomcr            thinnodes           24                  2017-10-11T09:52:41 2017-10-17T13:03:54 RUNNING             
